@@ -7,6 +7,9 @@
 
 Inspirado en el modelo de Wikiloc, VivacWeb se diferencia por la integración de un **motor de Inteligencia Artificial (IA)** que recomienda puntos de vivac y rutas personalizadas, basándose en el perfil detallado del usuario (nivel de experiencia, material disponible) y condiciones externas (clima, altitud, dificultad, distancia a núcleos de población).
 
+![WhatsApp Image 2025-10-02 at 20 13 49_80f964e8](https://github.com/user-attachments/assets/f5170337-2d93-4c65-9497-afddc8233140)
+
+
 ### Adaptación Técnica (Justificación de la Plataforma)
 
 Inicialmente, el pliego de requisitos técnicos planteaba una aplicación móvil multiplataforma. Sin embargo, tras una evaluación de viabilidad y adecuación para los plazos del MVP, hemos optado por desarrollar **VivacWeb** como una **aplicación web**. Esta decisión nos permite maximizar la accesibilidad del producto y agilizar el desarrollo del MVP, manteniendo intacta la funcionalidad central y la visión del proyecto.
