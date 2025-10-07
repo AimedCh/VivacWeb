@@ -1,0 +1,622 @@
+<mxfile host="app.diagrams.net" modified="2024-01-01T00:00:00.000Z" agent="5.0" etag="abc123" version="22.1.16" type="device">
+  <diagram name="ERD-VivacWeb" id="erd-vivacweb">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Diagrama Entidad-Relación (DER) - Frontend VivacWeb" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Usuario Entity -->
+        <mxCell id="usuario" value="Usuario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Usuario Attributes -->
+        <mxCell id="usuario_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_name" value="name" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_email" value="email" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="160" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_password" value="password" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_experience" value="experience_level" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="240" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_avatar" value="avatar" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_role" value="role" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_description" value="description" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_equipment" value="equipment" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_preferences" value="preferences" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_total_routes" value="total_routes" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_total_distance" value="total_distance" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="usuario_updated_at" value="updated_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Ruta Entity -->
+        <mxCell id="ruta" value="Ruta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="100" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Ruta Attributes -->
+        <mxCell id="ruta_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="80" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_name" value="name" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_description" value="description" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="160" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_coordinates" value="coordinates" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="200" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_waypoints" value="waypoints" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="240" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_difficulty" value="difficulty" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_distance" value="distance" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_duration" value="duration" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_elevation" value="elevation_gain" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_terrain" value="terrain" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="440" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_rating" value="rating" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_reviews" value="reviews" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_likes" value="likes" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_image" value="image" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_location" value="location" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="640" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_created_by" value="created_by (FK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="680" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="720" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ruta_updated_at" value="updated_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="760" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Trail Entity -->
+        <mxCell id="trail" value="Trail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="100" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Trail Attributes -->
+        <mxCell id="trail_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="80" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_name" value="name" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_image" value="image" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="160" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_time" value="time" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="200" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_distance" value="distance" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="240" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_description" value="description" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_rating" value="rating" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_reviews" value="reviews" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_difficulty" value="difficulty" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_terrain" value="terrain" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="440" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="trail_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Guide Entity -->
+        <mxCell id="guide" value="Guía" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="300" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Guide Attributes -->
+        <mxCell id="guide_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_title" value="title" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_slug" value="slug" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_content" value="content" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_excerpt" value="excerpt" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_category" value="category" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_difficulty" value="difficulty_level" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_image" value="featured_image" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_views" value="view_count" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="640" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="guide_updated_at" value="updated_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="680" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Rating Entity -->
+        <mxCell id="rating" value="Rating" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="300" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Rating Attributes -->
+        <mxCell id="rating_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rating_route_id" value="route_id (FK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rating_user_id" value="user_id (FK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rating_value" value="rating_value" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rating_comment" value="comment" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="440" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rating_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Post Entity -->
+        <mxCell id="post" value="Post" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="300" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Post Attributes -->
+        <mxCell id="post_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="280" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_author" value="author" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="320" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_avatar" value="avatar" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="360" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_content" value="content" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="400" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_image" value="image" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="440" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_time" value="time" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_likes" value="likes" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_comments" value="comments" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_shares" value="shares" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="post_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="640" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Group Entity -->
+        <mxCell id="group" value="Grupo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="500" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Group Attributes -->
+        <mxCell id="group_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="group_name" value="name" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="group_members" value="members" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="group_image" value="image" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="group_active" value="active" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="640" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="group_description" value="description" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="680" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="group_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="720" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Message Entity -->
+        <mxCell id="message" value="Mensaje" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="500" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Message Attributes -->
+        <mxCell id="message_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="message_user" value="user" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="message_message" value="message" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="message_time" value="time" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="message_avatar" value="avatar" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="640" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="message_isMe" value="isMe" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="680" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="message_group_id" value="group_id (FK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="720" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="message_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="760" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Equipment Entity -->
+        <mxCell id="equipment" value="Equipo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="500" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Equipment Attributes -->
+        <mxCell id="equipment_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="equipment_name" value="name" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="520" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="equipment_category" value="category" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="560" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="equipment_description" value="description" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="600" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Country Entity -->
+        <mxCell id="country" value="País" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="700" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Country Attributes -->
+        <mxCell id="country_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="680" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="country_name" value="name" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="720" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="country_code" value="code" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="760" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="country_routes_count" value="routes_count" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="800" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="country_description" value="description" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="840" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Weather Entity -->
+        <mxCell id="weather" value="Clima" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="700" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Weather Attributes -->
+        <mxCell id="weather_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="680" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="weather_temperature" value="temperature" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="720" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="weather_condition" value="condition" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="760" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="weather_forecast" value="forecast" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="800" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="weather_location" value="location" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="840" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="weather_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="880" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Filter Entity -->
+        <mxCell id="filter" value="Filtro" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="700" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Filter Attributes -->
+        <mxCell id="filter_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="680" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="filter_type" value="type" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="720" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="filter_values" value="values" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="760" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="filter_name" value="name" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="800" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Auth Entity -->
+        <mxCell id="auth" value="Autenticación" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="900" width="120" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Auth Attributes -->
+        <mxCell id="auth_id" value="id (PK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="880" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_user_id" value="user_id (FK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="920" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_token" value="token" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="960" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_refresh_token" value="refresh_token" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1000" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_expires_at" value="expires_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1040" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_ip_address" value="ip_address" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1080" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_user_agent" value="user_agent" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1120" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_created_at" value="created_at" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1160" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_revoked" value="revoked" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="200" y="1200" width="60" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Relationships -->
+        
+        <!-- Usuario crea Ruta (1:M) -->
+        <mxCell id="rel_crea" value="crea" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_crea_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="rel_crea">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_crea_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_crea" target="ruta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_crea_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="100" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_crea_2" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="100" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Usuario califica Ruta (M:N) -->
+        <mxCell id="rel_califica" value="califica" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="200" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_califica_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0;entryY=0.2;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="rel_califica">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_califica_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_califica" target="ruta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_califica_1" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="180" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_califica_2" value="N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="180" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Ruta tiene Rating (1:M) -->
+        <mxCell id="edge_ruta_rating" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ruta" target="rating">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_ruta_rating_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="250" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_ruta_rating_2" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="350" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Usuario tiene Rating (1:M) -->
+        <mxCell id="edge_usuario_rating" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="rating">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_usuario_rating_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="200" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_usuario_rating_2" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="200" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Usuario posee Equipo (M:N) -->
+        <mxCell id="rel_posee" value="posee" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="400" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_posee_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.2;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="rel_posee">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_posee_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_posee" target="equipment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_posee_1" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="380" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_posee_2" value="N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="380" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Usuario crea Post (1:M) -->
+        <mxCell id="edge_usuario_post" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="post">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_usuario_post_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="110" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_usuario_post_2" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="110" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Usuario pertenece Grupo (M:N) -->
+        <mxCell id="rel_pertenece" value="pertenece" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="600" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_pertenece_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="rel_pertenece">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_pertenece_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_pertenece" target="group">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_pertenece_1" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="580" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_pertenece_2" value="N" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="580" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Grupo tiene Mensaje (1:M) -->
+        <mxCell id="edge_grupo_mensaje" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="group" target="message">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_grupo_mensaje_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="520" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_grupo_mensaje_2" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="520" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- País tiene Ruta (1:M) -->
+        <mxCell id="edge_pais_ruta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="country" target="ruta">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_pais_ruta_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="720" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_pais_ruta_2" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="720" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Usuario tiene Auth (1:M) -->
+        <mxCell id="edge_usuario_auth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="usuario" target="auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label_usuario_auth_1" value="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="700" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="label_usuario_auth_2" value="M" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="850" width="20" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend_title" value="Leyenda" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1300" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_pk" value="Clave Primaria (PK)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1340" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_pk_color" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="180" y="1335" width="20" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_fk" value="Clave Foránea (FK)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1370" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_fk_color" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="180" y="1365" width="20" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_attr" value="Atributo Normal" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1400" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_attr_color" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="180" y="1395" width="20" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_entity" value="Entidad" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1430" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_entity_color" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="180" y="1425" width="30" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="legend_relation" value="Relación" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1460" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_relation_color" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="180" y="1455" width="30" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
