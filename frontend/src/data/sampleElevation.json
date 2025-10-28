@@ -1,0 +1,162 @@
+{
+  "route_1": {
+    "elevation_profile": [1830, 1850, 1900, 1950, 2000, 2050, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2428, 2400, 2350, 2300, 2250, 2200, 2150, 2100, 2050, 2000, 1950, 1900, 1850, 1830],
+    "waypoints": [
+      {
+        "id": "wp_1",
+        "name": "Puerto de Cotos",
+        "lat": 40.416775,
+        "lng": -3.703790,
+        "elevation": 1830,
+        "type": "Trailhead",
+        "description": "Punto de partida del sendero"
+      },
+      {
+        "id": "wp_2",
+        "name": "Laguna Grande",
+        "lat": 40.420000,
+        "lng": -3.700000,
+        "elevation": 2000,
+        "type": "Viewpoint",
+        "description": "Hermosa laguna de montaña"
+      },
+      {
+        "id": "wp_3",
+        "name": "Pico Peñalara",
+        "lat": 40.425000,
+        "lng": -3.695000,
+        "elevation": 2428,
+        "type": "Summit",
+        "description": "Cumbre más alta de la sierra madrileña"
+      }
+    ]
+  },
+  "route_2": {
+    "elevation_profile": [450, 460, 470, 480, 490, 500, 510, 520, 530, 540, 550, 560, 570, 580, 590, 600, 610, 620, 630, 640, 650, 640, 630, 620, 610, 600, 590, 580, 570, 560, 550, 540, 530, 520, 510, 500, 490, 480, 470, 460, 450],
+    "waypoints": [
+      {
+        "id": "wp_1",
+        "name": "Aparcamiento del Bosque",
+        "lat": 40.300000,
+        "lng": -3.800000,
+        "elevation": 450,
+        "type": "Trailhead",
+        "description": "Punto de inicio del sendero circular"
+      },
+      {
+        "id": "wp_2",
+        "name": "Cascada del Roble",
+        "lat": 40.310000,
+        "lng": -3.790000,
+        "elevation": 500,
+        "type": "Viewpoint",
+        "description": "Cascada natural en el bosque"
+      },
+      {
+        "id": "wp_3",
+        "name": "Mirador de los Robles",
+        "lat": 40.320000,
+        "lng": -3.780000,
+        "elevation": 650,
+        "type": "Viewpoint",
+        "description": "Vista panorámica del bosque"
+      }
+    ]
+  },
+  "route_3": {
+    "elevation_profile": [800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1400, 1450, 1500, 1550, 1600, 1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000],
+    "waypoints": [
+      {
+        "id": "wp_1",
+        "name": "Refugio de Montaña",
+        "lat": 40.500000,
+        "lng": -3.600000,
+        "elevation": 800,
+        "type": "Trailhead",
+        "description": "Refugio de montaña y punto de partida"
+      },
+      {
+        "id": "wp_2",
+        "name": "Collado del Viento",
+        "lat": 40.550000,
+        "lng": -3.550000,
+        "elevation": 1400,
+        "type": "Pass",
+        "description": "Collado con fuertes vientos"
+      },
+      {
+        "id": "wp_3",
+        "name": "Pico del Águila",
+        "lat": 40.600000,
+        "lng": -3.500000,
+        "elevation": 2000,
+        "type": "Summit",
+        "description": "Cumbre con vistas de 360 grados"
+      }
+    ]
+  },
+  "route_4": {
+    "elevation_profile": [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 290, 280, 270, 260, 250, 240, 230, 220, 210, 200, 190, 180, 170, 160, 150, 140, 130, 120, 110, 100, 90, 80, 70, 60, 50],
+    "waypoints": [
+      {
+        "id": "wp_1",
+        "name": "Playa de la Costa",
+        "lat": 41.700000,
+        "lng": 2.800000,
+        "elevation": 50,
+        "type": "Trailhead",
+        "description": "Playa y punto de inicio de la ruta"
+      },
+      {
+        "id": "wp_2",
+        "name": "Mirador de los Acantilados",
+        "lat": 41.750000,
+        "lng": 2.850000,
+        "elevation": 200,
+        "type": "Viewpoint",
+        "description": "Vista espectacular de los acantilados"
+      },
+      {
+        "id": "wp_3",
+        "name": "Cala Escondida",
+        "lat": 41.780000,
+        "lng": 2.880000,
+        "elevation": 50,
+        "type": "Beach",
+        "description": "Cala escondida y punto final"
+      }
+    ]
+  },
+  "route_5": {
+    "elevation_profile": [200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 400, 390, 380, 370, 360, 350, 340, 330, 320, 310, 300, 290, 280, 270, 260, 250, 240, 230, 220, 210, 200],
+    "waypoints": [
+      {
+        "id": "wp_1",
+        "name": "Pueblo Blanco 1",
+        "lat": 36.800000,
+        "lng": -5.200000,
+        "elevation": 200,
+        "type": "Village",
+        "description": "Primer pueblo blanco del recorrido"
+      },
+      {
+        "id": "wp_2",
+        "name": "Iglesia de San Miguel",
+        "lat": 36.850000,
+        "lng": -5.150000,
+        "elevation": 300,
+        "type": "Monument",
+        "description": "Iglesia histórica del siglo XVI"
+      },
+      {
+        "id": "wp_3",
+        "name": "Pueblo Blanco 2",
+        "lat": 36.900000,
+        "lng": -5.100000,
+        "elevation": 200,
+        "type": "Village",
+        "description": "Segundo pueblo blanco del recorrido"
+      }
+    ]
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "route_1",
+        "name": "Sierra de Guadarrama - Peñalara",
+        "description": "Ruta clásica de montaña en la Sierra de Guadarrama. Subida al pico más alto de la sierra madrileña con vistas espectaculares.",
+        "difficulty": "Medium",
+        "distance": 12.5,
+        "duration": "4-5 horas",
+        "elevation_gain": 850,
+        "rating": 4.7,
+        "reviews": 234,
+        "terrain": "Mountain",
+        "surface": "dirt",
+        "source": "osm",
+        "tags": ["montaña", "guadarrama", "penalara", "madrid", "senderismo"],
+        "wikiloc_url": "https://es.wikiloc.com/rutas-senderismo/sierra-de-guadarrama-penalara-desde-puerto-de-cotos-123456"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-3.703790, 40.416775],
+          [-3.700000, 40.420000],
+          [-3.695000, 40.425000],
+          [-3.690000, 40.430000],
+          [-3.685000, 40.435000],
+          [-3.680000, 40.440000],
+          [-3.675000, 40.445000],
+          [-3.670000, 40.450000],
+          [-3.665000, 40.455000],
+          [-3.660000, 40.460000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "route_2",
+        "name": "Ruta del Bosque Encantado",
+        "description": "Sendero circular por un bosque de robles centenarios con cascadas y miradores naturales.",
+        "difficulty": "Easy",
+        "distance": 5.2,
+        "duration": "2 horas",
+        "elevation_gain": 120,
+        "rating": 4.2,
+        "reviews": 34,
+        "terrain": "Forest",
+        "surface": "gravel",
+        "source": "osm",
+        "tags": ["bosque", "circular", "familiar", "cascadas", "naturaleza"],
+        "wikiloc_url": "https://es.wikiloc.com/rutas-senderismo/ruta-del-bosque-encantado-789012"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-3.800000, 40.300000],
+          [-3.795000, 40.305000],
+          [-3.790000, 40.310000],
+          [-3.785000, 40.315000],
+          [-3.780000, 40.320000],
+          [-3.775000, 40.315000],
+          [-3.780000, 40.310000],
+          [-3.785000, 40.305000],
+          [-3.790000, 40.300000],
+          [-3.795000, 40.295000],
+          [-3.800000, 40.300000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "route_3",
+        "name": "Ascenso al Pico del Águila",
+        "description": "Ruta exigente hasta la cumbre más alta de la zona con vistas panorámicas de 360 grados.",
+        "difficulty": "Hard",
+        "distance": 12.8,
+        "duration": "6 horas",
+        "elevation_gain": 1200,
+        "rating": 4.8,
+        "reviews": 89,
+        "terrain": "Mountain",
+        "surface": "rock",
+        "source": "osm",
+        "tags": ["montaña", "cumbre", "exigente", "panoramica", "avanzado"],
+        "wikiloc_url": "https://es.wikiloc.com/rutas-senderismo/ascenso-al-pico-del-aguila-345678"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-3.600000, 40.500000],
+          [-3.590000, 40.510000],
+          [-3.580000, 40.520000],
+          [-3.570000, 40.530000],
+          [-3.560000, 40.540000],
+          [-3.550000, 40.550000],
+          [-3.540000, 40.560000],
+          [-3.530000, 40.570000],
+          [-3.520000, 40.580000],
+          [-3.510000, 40.590000],
+          [-3.500000, 40.600000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "route_4",
+        "name": "Sendero de la Costa Brava",
+        "description": "Ruta costera con acantilados espectaculares y calas escondidas.",
+        "difficulty": "Medium",
+        "distance": 8.7,
+        "duration": "3.5 horas",
+        "elevation_gain": 300,
+        "rating": 4.5,
+        "reviews": 156,
+        "terrain": "Coastal",
+        "surface": "rock",
+        "source": "osm",
+        "tags": ["costa", "acantilados", "calas", "mar", "vistas"],
+        "wikiloc_url": "https://es.wikiloc.com/rutas-senderismo/sendero-de-la-costa-brava-901234"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [2.800000, 41.700000],
+          [2.810000, 41.710000],
+          [2.820000, 41.720000],
+          [2.830000, 41.730000],
+          [2.840000, 41.740000],
+          [2.850000, 41.750000],
+          [2.860000, 41.760000],
+          [2.870000, 41.770000],
+          [2.880000, 41.780000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "route_5",
+        "name": "Camino de los Pueblos Blancos",
+        "description": "Ruta cultural que conecta pueblos andaluces de arquitectura tradicional.",
+        "difficulty": "Easy",
+        "distance": 15.3,
+        "duration": "5 horas",
+        "elevation_gain": 200,
+        "rating": 4.3,
+        "reviews": 78,
+        "terrain": "Mixed",
+        "surface": "paved",
+        "source": "osm",
+        "tags": ["cultural", "pueblos", "arquitectura", "historia", "familiar"],
+        "wikiloc_url": "https://es.wikiloc.com/rutas-senderismo/camino-de-los-pueblos-blancos-567890"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-5.200000, 36.800000],
+          [-5.190000, 36.810000],
+          [-5.180000, 36.820000],
+          [-5.170000, 36.830000],
+          [-5.160000, 36.840000],
+          [-5.150000, 36.850000],
+          [-5.140000, 36.860000],
+          [-5.130000, 36.870000],
+          [-5.120000, 36.880000],
+          [-5.110000, 36.890000],
+          [-5.100000, 36.900000]
+        ]
+      }
+    }
+  ]
+}
