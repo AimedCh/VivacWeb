@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VivacWeb - Descubre sitios</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="star">★</span>
+                    <span class="logo-text">LOGO</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar Menu -->
+        <aside class="sidebar" id="sidebar">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="explorar.html" class="nav-item">
+                    <i class="fas fa-globe"></i>
+                    <span>Explorar</span>
+                </a>
+                <a href="crear-vivac.html" class="nav-item">
+                    <i class="fas fa-flag"></i>
+                    <span>Crear vivac</span>
+                </a>
+                <a href="comunidad.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Comunidad</span>
+                </a>
+                <a href="perfil.html" class="nav-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <button class="nav-item logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Search Section -->
+            <div class="search-section">
+                <h1 class="section-title">Descubre los mejores sitios<br>para hacer vivac</h1>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="search-input" placeholder="Buscar una localización...">
+                </div>
+                <div class="view-controls">
+                    <button class="control-btn" id="mapViewBtn">
+                        <i class="fas fa-map"></i>
+                        <span>Ver mapa</span>
+                    </button>
+                    <button class="control-btn" id="filterBtn">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Filtros</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Map Container (Hidden by default) -->
+            <div class="map-container" id="mapContainer" style="display: none;">
+                <div id="map"></div>
+            </div>
+
+            <!-- Near You Section -->
+            <section class="locations-section">
+                <div class="section-header">
+                    <h2>Cerca de ti</h2>
+                    <a href="#" class="see-more">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="locations-grid">
+                    <div class="location-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Mirador del Alto de la Sierra">
+                            <button class="favorite-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3>Mirador del Alto de la Sierra</h3>
+                            <p class="location-name">Tibi, España</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.5</span>
+                                <span class="reviews">10 reviews</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="location-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Mirador del Alto">
+                            <button class="favorite-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3>Mirador del Alto</h3>
+                            <p class="location-name">Tibi, España</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.0</span>
+                                <span class="reviews">8 reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Section -->
+            <section class="locations-section">
+                <div class="section-header">
+                    <h2>Popular entre los usuarios</h2>
+                    <a href="#" class="see-more">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="locations-grid">
+                    <div class="location-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Sitio Popular 1">
+                            <button class="favorite-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3>Sitio Popular 1</h3>
+                            <p class="location-name">España</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                                <span class="reviews">25 reviews</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="location-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Sitio Popular 2">
+                            <button class="favorite-btn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                        <div class="card-content">
+                            <h3>Sitio Popular 2</h3>
+                            <p class="location-name">España</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.6</span>
+                                <span class="reviews">18 reviews</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="dashboard-script.js"></script>
+</body>
+</html>
+

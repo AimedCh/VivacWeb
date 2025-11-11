@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VivacWeb - Configuración</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .settings-container {
+            max-width: 600px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .settings-section {
+            padding: 24px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .settings-section:last-child {
+            border-bottom: none;
+        }
+
+        .settings-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .setting-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-label {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .setting-label strong {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+
+        .setting-label small {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background-color: #e0e0e0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .toggle-switch.active {
+            background-color: #2d7a4a;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: all 0.2s;
+        }
+
+        .toggle-switch.active::after {
+            left: 24px;
+        }
+
+        .danger-zone {
+            background-color: #fee2e2;
+            border: 2px solid #fecaca;
+        }
+
+        .danger-btn {
+            padding: 10px 20px;
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .danger-btn:hover {
+            background-color: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="star">★</span>
+                    <span class="logo-text">LOGO</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar Menu -->
+        <aside class="sidebar" id="sidebar">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="explorar.html" class="nav-item">
+                    <i class="fas fa-globe"></i>
+                    <span>Explorar</span>
+                </a>
+                <a href="crear-vivac.html" class="nav-item">
+                    <i class="fas fa-flag"></i>
+                    <span>Crear vivac</span>
+                </a>
+                <a href="comunidad.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Comunidad</span>
+                </a>
+                <a href="perfil.html" class="nav-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="settings.html" class="nav-item active">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <button class="nav-item logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h1 class="section-title">Configuración</h1>
+            
+            <div class="settings-container">
+                <!-- Notifications Section -->
+                <div class="settings-section">
+                    <h3>Notificaciones</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Notificaciones por email</strong>
+                            <small>Recibe actualizaciones por correo</small>
+                        </div>
+                        <div class="toggle-switch active" data-setting="email-notifications"></div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Notificaciones push</strong>
+                            <small>Recibe notificaciones en el navegador</small>
+                        </div>
+                        <div class="toggle-switch" data-setting="push-notifications"></div>
+                    </div>
+                </div>
+
+                <!-- Privacy Section -->
+                <div class="settings-section">
+                    <h3>Privacidad</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Perfil público</strong>
+                            <small>Permite que otros vean tu perfil</small>
+                        </div>
+                        <div class="toggle-switch active" data-setting="public-profile"></div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Mostrar ubicación</strong>
+                            <small>Comparte tu ubicación con la comunidad</small>
+                        </div>
+                        <div class="toggle-switch" data-setting="show-location"></div>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="settings-section danger-zone">
+                    <h3>Zona de peligro</h3>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <strong>Eliminar cuenta</strong>
+                            <small>Esta acción no se puede deshacer</small>
+                        </div>
+                        <button class="danger-btn" onclick="if(confirm('¿Estás seguro? Esta acción no se puede deshacer.')) { alert('Cuenta eliminada'); }">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+    <script>
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const setting = this.dataset.setting;
+                const isActive = this.classList.contains('active');
+                localStorage.setItem(`setting_${setting}`, isActive);
+            });
+        });
+
+        // Cargar configuraciones guardadas
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                const setting = toggle.dataset.setting;
+                const saved = localStorage.getItem(`setting_${setting}`);
+                if (saved === 'false') {
+                    toggle.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

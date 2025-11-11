@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VivacWeb - Crear vivac</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2d7a4a;
+            box-shadow: 0 0 0 3px rgba(45, 122, 74, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #2d7a4a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #1f5a35;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="star">★</span>
+                    <span class="logo-text">LOGO</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar Menu -->
+        <aside class="sidebar" id="sidebar">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="explorar.html" class="nav-item">
+                    <i class="fas fa-globe"></i>
+                    <span>Explorar</span>
+                </a>
+                <a href="crear-vivac.html" class="nav-item active">
+                    <i class="fas fa-flag"></i>
+                    <span>Crear vivac</span>
+                </a>
+                <a href="comunidad.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Comunidad</span>
+                </a>
+                <a href="perfil.html" class="nav-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <button class="nav-item logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h1 class="section-title">Crear un nuevo vivac</h1>
+            
+            <div class="form-container">
+                <form id="createVivacForm">
+                    <div class="form-group">
+                        <label for="name">Nombre del sitio *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Localización *</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <textarea id="description" name="description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="latitude">Latitud *</label>
+                        <input type="number" id="latitude" name="latitude" step="0.0001" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="longitude">Longitud *</label>
+                        <input type="number" id="longitude" name="longitude" step="0.0001" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Categoría</label>
+                        <select id="category" name="category">
+                            <option value="">Seleccionar categoría</option>
+                            <option value="Playa">Playa</option>
+                            <option value="Montaña">Montaña</option>
+                            <option value="Bosque">Bosque</option>
+                            <option value="Desierto">Desierto</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Crear vivac</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+    <script>
+        document.getElementById('createVivacForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value,
+                latitude: parseFloat(document.getElementById('latitude').value),
+                longitude: parseFloat(document.getElementById('longitude').value),
+                category: document.getElementById('category').value,
+                image_url: 'https://via.placeholder.com/400x300',
+                rating: 0,
+                reviews_count: 0
+            };
+
+            try {
+                const response = await fetch('http://localhost/400web/api/public/api/locations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('¡Vivac creado exitosamente!');
+                    document.getElementById('createVivacForm').reset();
+                    setTimeout(() => {
+                        window.location.href = 'explorar.html';
+                    }, 1000);
+                } else {
+                    alert('Error al crear el vivac: ' + (data.message || 'Error desconocido'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al crear el vivac');
+            }
+        });
+    </script>
+</body>
+</html>
+

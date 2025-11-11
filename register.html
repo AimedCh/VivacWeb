@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VivacWeb - Regístrate</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .register-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .register-card h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .register-card p {
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group input.error {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        .login-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Logo -->
+            <div class="logo">
+                <span class="star">★</span>
+                <span class="logo-text">LOGO</span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="headline">Únete a VivacWeb</h1>
+            <p class="subheadline">Crea tu cuenta y comienza a disfrutar de todas nuestras funcionalidades.</p>
+
+            <!-- Register Form -->
+            <div class="login-form">
+                <h2 class="form-title">Crear cuenta</h2>
+                
+                <form id="registerForm" novalidate>
+                    <!-- Full Name Field -->
+                    <div class="form-group">
+                        <label for="fullname">Nombre usuario</label>
+                        <input 
+                            type="text" 
+                            id="fullname" 
+                            name="fullname" 
+                            placeholder="María Díaz García"
+                            required
+                        >
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="maria.diaz@gmail.com"
+                            required
+                        >
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                placeholder=""
+                                required
+                            >
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 4C4.5 4 2 10 2 10s2.5 6 8 6 8-6 8-6-2.5-6-8-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="3" y1="3" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="eye-slash"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="password-hint">Mínimo 8 caracteres, incluye mayúsculas y números</p>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar contraseña</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                placeholder=""
+                                required
+                            >
+                            <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 4C4.5 4 2 10 2 10s2.5 6 8 6 8-6 8-6-2.5-6-8-6z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+                                    <line x1="3" y1="3" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="eye-slash"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox">
+                        <input 
+                            type="checkbox" 
+                            id="terms" 
+                            name="terms" 
+                            required
+                        >
+                        <label for="terms">Acepto los <a href="#">términos y condiciones</a></label>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="error-message" id="errorMessage">
+                        * Por favor completa todos los campos correctamente
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit">Crear cuenta</button>
+
+                 
+
+                    <!-- Login Link -->
+                    <p class="register-link">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL del API
+        const API_URL = "https://vivac-backend-production.up.railway.app";
+        console.log('🔵 API_URL configurada como:', API_URL);
+
+        // Función para validar email
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        const registerForm = document.getElementById('registerForm');
+        const fullnameInput = document.getElementById('fullname');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const termsCheckbox = document.getElementById('terms');
+        const errorMessage = document.getElementById('errorMessage');
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+
+        // Toggle password visibility
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('show');
+        });
+
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.classList.toggle('show');
+        });
+
+        // Form submission
+        registerForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = fullnameInput.value.trim();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+            const confirmPassword = confirmPasswordInput.value.trim();
+            const termsAccepted = termsCheckbox.checked;
+
+            // Reset error state
+            fullnameInput.classList.remove('error');
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+            confirmPasswordInput.classList.remove('error');
+            errorMessage.classList.remove('show');
+
+            let hasError = false;
+            let errorText = '';
+
+            // Validations
+            if (!name || name.length < 3) {
+                fullnameInput.classList.add('error');
+                errorText = '* El nombre debe tener al menos 3 caracteres';
+                hasError = true;
+            }
+
+            if (!email || !isValidEmail(email)) {
+                emailInput.classList.add('error');
+                errorText = '* Email inválido';
+                hasError = true;
+            }
+
+            if (!password || password.length < 8) {
+                passwordInput.classList.add('error');
+                errorText = '* La contraseña debe tener al menos 8 caracteres';
+                hasError = true;
+            }
+
+            if (password !== confirmPassword) {
+                confirmPasswordInput.classList.add('error');
+                errorText = '* Las contraseñas no coinciden';
+                hasError = true;
+            }
+
+            if (!termsAccepted) {
+                errorText = '* Debes aceptar los términos y condiciones';
+                hasError = true;
+            }
+
+            if (hasError) {
+                errorMessage.textContent = errorText;
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Register con backend
+            try {
+                const response = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userName: name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('¡Registro exitoso! Ahora inicia sesión con tus credenciales');
+                    window.location.href = 'login.html';
+                } else {
+                    errorMessage.textContent = '* ' + (data.message || 'Error en el servidor');
+                    errorMessage.classList.add('show');
+                }
+            } catch (error) {
+                console.error('Error completo:', error);
+                console.error('Intentando conectar a:', `${API_URL}/register`);
+                let errorText = '* Error de conexión. ';
+                if (error.message.includes('Failed to fetch')) {
+                    errorText += 'Verifica CORS o que el servidor esté disponible.';
+                } else {
+                    errorText += error.message;
+                }
+                errorMessage.textContent = errorText;
+                errorMessage.classList.add('show');
+            }
+        });
+
+        // Remove error on input
+        [fullnameInput, emailInput, passwordInput, confirmPasswordInput].forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
+                    errorMessage.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VivacWeb - Comunidad</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .community-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .community-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .community-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2d7a4a, #1f5a35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            margin: 0 auto 16px;
+        }
+
+        .community-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .community-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .follow-btn {
+            padding: 10px 20px;
+            background-color: #2d7a4a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .follow-btn:hover {
+            background-color: #1f5a35;
+        }
+
+        .follow-btn.following {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="star">★</span>
+                    <span class="logo-text">LOGO</span>
+                </div>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar Menu -->
+        <aside class="sidebar" id="sidebar">
+            <button class="close-menu" id="closeMenu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <a href="explorar.html" class="nav-item">
+                    <i class="fas fa-globe"></i>
+                    <span>Explorar</span>
+                </a>
+                <a href="crear-vivac.html" class="nav-item">
+                    <i class="fas fa-flag"></i>
+                    <span>Crear vivac</span>
+                </a>
+                <a href="comunidad.html" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    <span>Comunidad</span>
+                </a>
+                <a href="perfil.html" class="nav-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Perfil</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <button class="nav-item logout-btn" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <h1 class="section-title">Comunidad VivacWeb</h1>
+            <p style="color: #666; margin-bottom: 32px;">Conecta con otros aventureros y descubre nuevos sitios</p>
+            
+            <div class="community-grid">
+                <div class="community-card">
+                    <div class="community-avatar">👤</div>
+                    <h3>Juan García</h3>
+                    <p>Explorador de montañas</p>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-avatar">🏕️</div>
+                    <h3>María López</h3>
+                    <p>Amante del camping</p>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-avatar">🌲</div>
+                    <h3>Carlos Ruiz</h3>
+                    <p>Naturalista</p>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-avatar">⛰️</div>
+                    <h3>Ana Martínez</h3>
+                    <p>Aventurera</p>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-avatar">🗺️</div>
+                    <h3>Pedro Sánchez</h3>
+                    <p>Viajero</p>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+
+                <div class="community-card">
+                    <div class="community-avatar">🌄</div>
+                    <h3>Laura Fernández</h3>
+                    <p>Fotógrafa de naturaleza</p>
+                    <button class="follow-btn">Seguir</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="dashboard-script.js"></script>
+    <script>
+        document.querySelectorAll('.follow-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('following');
+                this.textContent = this.classList.contains('following') ? 'Siguiendo' : 'Seguir';
+            });
+        });
+    </script>
+</body>
+</html>
+
