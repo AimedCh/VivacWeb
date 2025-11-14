@@ -232,8 +232,10 @@
     </div>
 
     <script>
-        // URL del API
-        const API_URL = "https://vivac-backend-production.up.railway.app";
+        // Usar proxy local en desarrollo, backend en producción
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+          ? "http://localhost:3001"
+          : "https://vivac-backend-production.up.railway.app";
         console.log('🔵 API_URL configurada como:', API_URL);
 
         // Función para validar email

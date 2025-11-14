@@ -157,7 +157,10 @@
     </div>
 
     <script>
-      const API_URL = "https://vivac-backend-production.up.railway.app";
+      // Usar proxy local en desarrollo, backend en producción
+      const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? "http://localhost:3001"
+        : "https://vivac-backend-production.up.railway.app";
 
       // Función para validar email
       function isValidEmail(email) {
@@ -348,22 +351,27 @@
 
       // Initialize Google Sign-In when page loads
       window.addEventListener("load", function () {
-        google.accounts.id.initialize({
-          client_id:
-            "118582736340-9fnfvji5lcb77k5t3sjq101pta6dakaj.apps.googleusercontent.com",
-          callback: handleCredentialResponse,
-        });
-
-        // Render the Google Sign-In button
-        const googleBtn = document.getElementById("googleSignInBtn");
-        if (googleBtn) {
-          google.accounts.id.renderButton(googleBtn, {
-            theme: "outline",
-            size: "large",
-            width: googleBtn.offsetWidth,
-            text: "continue_with",
-            locale: "es",
+        try {
+          google.accounts.id.initialize({
+            client_id:
+              "118582736340-9fnfvji5lcb77k5t3sjq101pta6dakaj.apps.googleusercontent.com",
+            callback: handleCredentialResponse,
           });
+
+          // Render the Google Sign-In button
+          const googleBtn = document.getElementById("googleSignInBtn");
+          if (googleBtn) {
+            google.accounts.id.renderButton(googleBtn, {
+              theme: "outline",
+              size: "large",
+              width: googleBtn.offsetWidth,
+              text: "continue_with",
+              locale: "es",
+            });
+          }
+        } catch (error) {
+          console.error("Error inicializando Google Sign-In:", error);
+          console.log("Asegúrate de que el dominio está autorizado en Google Cloud Console");
         }
       });
     </script>
