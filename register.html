@@ -124,8 +124,7 @@
         <div class="login-card">
             <!-- Logo -->
             <div class="logo">
-                <span class="star">★</span>
-                <span class="logo-text">LOGO</span>
+                <img src="logo.svg" alt="Wild Spot" class="logo-img">
             </div>
 
             <!-- Headline -->
@@ -333,16 +332,20 @@
 
                 const data = await response.json();
 
-                if (data.success) {
+                // El backend devuelve accessToken si es exitoso, o un mensaje de error
+                if (data.accessToken || data.user) {
                     alert('¡Registro exitoso! Ahora inicia sesión con tus credenciales');
                     window.location.href = 'login.html';
+                } else if (data.message) {
+                    errorMessage.textContent = '* ' + data.message;
+                    errorMessage.classList.add('show');
                 } else {
-                    errorMessage.textContent = '* ' + (data.message || 'Error en el servidor');
+                    errorMessage.textContent = '* Error en el servidor';
                     errorMessage.classList.add('show');
                 }
             } catch (error) {
                 console.error('Error completo:', error);
-                console.error('Intentando conectar a:', `${API_URL}/register`);
+                console.error('Intentando conectar a:', `${API_URL}/auth/register`);
                 let errorText = '* Error de conexión. ';
                 if (error.message.includes('Failed to fetch')) {
                     errorText += 'Verifica CORS o que el servidor esté disponible.';

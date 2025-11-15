@@ -7,147 +7,181 @@
     <link rel="stylesheet" href="dashboard-styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="dashboard-wrapper">
         <!-- Header -->
         <header class="dashboard-header">
             <div class="header-content">
                 <div class="logo">
-                    <span class="star">★</span>
-                    <span class="logo-text">LOGO</span>
+                    <img src="logo.svg" alt="Wild Spot" class="logo-img">
                 </div>
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <nav class="header-nav">
+                    <a href="dashboard.html" class="nav-link">Inicio</a>
+                    <a href="explorar.html" class="nav-link active">Explorar</a>
+                    <a href="crear-vivac.html" class="nav-link">Crear vivac</a>
+                    <a href="comunidad.html" class="nav-link">Comunidad</a>
+                    <a href="perfil.html" class="nav-link">Perfil</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="settings.html" class="icon-btn" title="Configuración">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                    <button class="icon-btn logout-btn" id="logoutBtn" title="Cerrar sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </header>
 
-        <!-- Sidebar Menu -->
-        <aside class="sidebar" id="sidebar">
-            <button class="close-menu" id="closeMenu">
-                <i class="fas fa-times"></i>
-            </button>
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i class="fas fa-home"></i>
-                    <span>Inicio</span>
-                </a>
-                <a href="explorar.html" class="nav-item active">
-                    <i class="fas fa-globe"></i>
-                    <span>Explorar</span>
-                </a>
-                <a href="crear-vivac.html" class="nav-item">
-                    <i class="fas fa-flag"></i>
-                    <span>Crear vivac</span>
-                </a>
-                <a href="comunidad.html" class="nav-item">
-                    <i class="fas fa-users"></i>
-                    <span>Comunidad</span>
-                </a>
-                <a href="perfil.html" class="nav-item">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Perfil</span>
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <a href="settings.html" class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-                <button class="nav-item logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Log out</span>
-                </button>
-            </div>
-        </aside>
-
         <!-- Main Content -->
         <main class="dashboard-main">
-            <div class="search-section">
-                <h1 class="section-title">Explorar sitios</h1>
-                <div class="search-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" class="search-input" placeholder="Buscar una localización...">
-                </div>
-                <div class="view-controls">
-                    <button class="control-btn" id="mapViewBtn">
-                        <i class="fas fa-map"></i>
-                        <span>Ver mapa</span>
-                    </button>
-                    <button class="control-btn" id="filterBtn">
-                        <i class="fas fa-sliders-h"></i>
-                        <span>Filtros</span>
-                    </button>
-                </div>
-            </div>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <h1 class="hero-title">Explora todos los sitios</h1>
+                <p class="hero-subtitle">Descubre miles de lugares increíbles para acampar</p>
+            </section>
 
-            <!-- Map Container -->
-            <div class="map-container" id="mapContainer" style="display: none;">
-                <div id="map"></div>
-            </div>
-
-            <!-- Locations Grid -->
-            <section class="locations-section">
-                <div class="section-header">
-                    <h2>Todos los sitios</h2>
-                </div>
-                <div class="locations-grid" id="locationsGrid">
-                    <!-- Cargado dinámicamente -->
+            <!-- Search & Controls Section -->
+            <section class="search-section">
+                <div class="search-wrapper">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="search-input" placeholder="Buscar una localización...">
+                    </div>
+                    <div class="control-buttons">
+                        <button class="control-btn" id="filterBtn" title="Abrir filtros">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Filtros</span>
+                        </button>
+                    </div>
                 </div>
             </section>
+
+            <!-- Locations Content -->
+            <div class="locations-content">
+                <section class="locations-section">
+                    <div class="section-header">
+                        <h2>Todos los sitios</h2>
+                    </div>
+                    <div class="locations-grid">
+                        <div class="location-card">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Mirador del Alto de la Sierra">
+                                <button class="favorite-btn" title="Agregar a favoritos">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <h3>Mirador del Alto de la Sierra</h3>
+                                <p class="location-name">Tibi, España</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.5</span>
+                                    <span class="reviews">10 reviews</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="location-card">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop" alt="Bosque de Pinos">
+                                <button class="favorite-btn" title="Agregar a favoritos">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <h3>Bosque de Pinos</h3>
+                                <p class="location-name">Segovia, España</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.0</span>
+                                    <span class="reviews">8 reviews</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="location-card">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=400&h=300&fit=crop" alt="Lago de Montaña">
+                                <button class="favorite-btn" title="Agregar a favoritos">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <h3>Lago de Montaña</h3>
+                                <p class="location-name">Asturias, España</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                    <span class="reviews">15 reviews</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="location-card">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop" alt="Playa Escondida">
+                                <button class="favorite-btn" title="Agregar a favoritos">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <h3>Playa Escondida</h3>
+                                <p class="location-name">Málaga, España</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.6</span>
+                                    <span class="reviews">18 reviews</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="location-card">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop" alt="Valle Verde">
+                                <button class="favorite-btn" title="Agregar a favoritos">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <h3>Valle Verde</h3>
+                                <p class="location-name">Navarra, España</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                    <span class="reviews">25 reviews</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="location-card">
+                            <div class="card-image">
+                                <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&h=300&fit=crop" alt="Acantilados del Mar">
+                                <button class="favorite-btn" title="Agregar a favoritos">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <h3>Acantilados del Mar</h3>
+                                <p class="location-name">Galicia, España</p>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.9</span>
+                                    <span class="reviews">32 reviews</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script src="dashboard-script.js"></script>
-    <script>
-        // Cargar ubicaciones desde API
-        async function loadLocations() {
-            try {
-                const response = await fetch('http://localhost/400web/api/public/api/locations');
-                const locations = await response.json();
-                
-                const grid = document.getElementById('locationsGrid');
-                grid.innerHTML = '';
-                
-                if (locations.length === 0) {
-                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">No hay sitios disponibles</p>';
-                    return;
-                }
-                
-                locations.forEach((location, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'location-card';
-                    card.innerHTML = `
-                        <div class="card-image">
-                            <img src="${location.image_url || 'https://via.placeholder.com/400x300'}" alt="${location.name}">
-                            <button class="favorite-btn">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </div>
-                        <div class="card-content">
-                            <h3>${location.name}</h3>
-                            <p class="location-name">${location.location}</p>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <span>${location.rating}</span>
-                                <span class="reviews">${location.reviews_count} reviews</span>
-                            </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-                
-                initializeFavorites();
-            } catch (error) {
-                console.error('Error cargando ubicaciones:', error);
-            }
-        }
-        
-        window.addEventListener('load', loadLocations);
-    </script>
 </body>
 </html>
 

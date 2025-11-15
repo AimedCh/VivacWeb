@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Logout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .button {
+            padding: 12px 24px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+        }
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            background: #f0f0f0;
+        }
+        .log {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .log-entry {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test de Logout</h1>
+        
+        <button class="button logout-btn" id="testLogoutBtn">
+            Probar Logout
+        </button>
+
+        <button class="button" style="background: #2d7a4a; color: white;" id="setDataBtn">
+            Guardar datos de prueba
+        </button>
+
+        <button class="button" style="background: #4a90e2; color: white;" id="checkDataBtn">
+            Verificar datos
+        </button>
+
+        <div class="status">
+            <strong>Estado:</strong>
+            <p id="status">Esperando acción...</p>
+        </div>
+
+        <div class="log" id="log"></div>
+    </div>
+
+    <script>
+        const logDiv = document.getElementById('log');
+        const statusDiv = document.getElementById('status');
+
+        function log(message) {
+            console.log(message);
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        document.getElementById('setDataBtn').addEventListener('click', function() {
+            log('📝 Guardando datos de prueba...');
+            localStorage.setItem('vivacweb_token', 'test_token_12345');
+            localStorage.setItem('vivacweb_user', JSON.stringify({name: 'Test User', email: 'test@example.com'}));
+            log('✅ Datos guardados en localStorage');
+            statusDiv.textContent = 'Datos guardados. Ahora prueba el logout.';
+        });
+
+        document.getElementById('checkDataBtn').addEventListener('click', function() {
+            log('🔍 Verificando datos en localStorage...');
+            const token = localStorage.getItem('vivacweb_token');
+            const user = localStorage.getItem('vivacweb_user');
+            log(`Token: ${token ? '✅ Existe' : '❌ No existe'}`);
+            log(`User: ${user ? '✅ Existe' : '❌ No existe'}`);
+            statusDiv.textContent = `Token: ${token ? 'Existe' : 'No existe'} | User: ${user ? 'Existe' : 'No existe'}`;
+        });
+
+        document.getElementById('testLogoutBtn').addEventListener('click', function() {
+            log('🔴 Botón de logout clickeado');
+            
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                log('✅ Usuario confirmó logout');
+                log('🗑️ Limpiando localStorage...');
+                
+                try {
+                    localStorage.clear();
+                    log('✅ localStorage limpiado');
+                    
+                    log('⏳ Esperando 2 segundos antes de redirigir...');
+                    statusDiv.textContent = 'Limpieza completada. Redirigiendo en 2 segundos...';
+                    
+                    setTimeout(function() {
+                        log('🔗 Redirigiendo a login.html...');
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } catch (error) {
+                    log('❌ Error: ' + error.message);
+                    statusDiv.textContent = 'Error: ' + error.message;
+                }
+            } else {
+                log('❌ Usuario canceló logout');
+                statusDiv.textContent = 'Logout cancelado';
+            }
+        });
+
+        log('✅ Script cargado correctamente');
+    </script>
+</body>
+</html>
+

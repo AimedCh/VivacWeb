@@ -76,58 +76,33 @@
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="dashboard-wrapper">
         <!-- Header -->
         <header class="dashboard-header">
             <div class="header-content">
                 <div class="logo">
-                    <span class="star">★</span>
-                    <span class="logo-text">LOGO</span>
+                    <img src="logo.svg" alt="Wild Spot" class="logo-img">
                 </div>
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <nav class="header-nav">
+                    <a href="dashboard.html" class="nav-link">Inicio</a>
+                    <a href="explorar.html" class="nav-link">Explorar</a>
+                    <a href="crear-vivac.html" class="nav-link">Crear vivac</a>
+                    <a href="comunidad.html" class="nav-link active">Comunidad</a>
+                    <a href="perfil.html" class="nav-link">Perfil</a>
+                </nav>
+                <div class="header-actions">
+                    <a href="settings.html" class="icon-btn" title="Configuración">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                    <button class="icon-btn logout-btn" id="logoutBtn" title="Cerrar sesión">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </header>
-
-        <!-- Sidebar Menu -->
-        <aside class="sidebar" id="sidebar">
-            <button class="close-menu" id="closeMenu">
-                <i class="fas fa-times"></i>
-            </button>
-            <nav class="sidebar-nav">
-                <a href="dashboard.html" class="nav-item">
-                    <i class="fas fa-home"></i>
-                    <span>Inicio</span>
-                </a>
-                <a href="explorar.html" class="nav-item">
-                    <i class="fas fa-globe"></i>
-                    <span>Explorar</span>
-                </a>
-                <a href="crear-vivac.html" class="nav-item">
-                    <i class="fas fa-flag"></i>
-                    <span>Crear vivac</span>
-                </a>
-                <a href="comunidad.html" class="nav-item active">
-                    <i class="fas fa-users"></i>
-                    <span>Comunidad</span>
-                </a>
-                <a href="perfil.html" class="nav-item">
-                    <i class="fas fa-user-circle"></i>
-                    <span>Perfil</span>
-                </a>
-            </nav>
-            <div class="sidebar-footer">
-                <a href="settings.html" class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-                <button class="nav-item logout-btn" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Log out</span>
-                </button>
-            </div>
-        </aside>
 
         <!-- Main Content -->
         <main class="dashboard-main">

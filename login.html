@@ -17,8 +17,7 @@
       <div class="login-card">
         <!-- Logo -->
         <div class="logo">
-          <span class="star">Ejemplo de logo ★</span>
-          <span class="">LOGO</span>
+          <img src="logo.svg" alt="Wild Spot" class="logo-img">
         </div>
 
         <!-- Headline -->
@@ -226,17 +225,23 @@
 
           const data = await response.json();
 
-          if (data.success) {
+          // El backend devuelve accessToken si es exitoso, o un mensaje de error
+          if (data.accessToken) {
             // Guardar token y usuario
-            localStorage.setItem("vivacweb_token", data.token);
+            localStorage.setItem("vivacweb_token", data.accessToken);
             localStorage.setItem("vivacweb_user", JSON.stringify(data.user));
 
-            alert("¡Bienvenido " + data.user.name + "!");
+            alert("¡Bienvenido " + data.user.userName + "!");
             window.location.href = "dashboard.html";
-          } else {
+          } else if (data.message) {
             emailInput.classList.add("error");
             passwordInput.classList.add("error");
             errorMessage.textContent = "* " + data.message;
+            errorMessage.classList.add("show");
+          } else {
+            emailInput.classList.add("error");
+            passwordInput.classList.add("error");
+            errorMessage.textContent = "* Credenciales inválidas";
             errorMessage.classList.add("show");
           }
         } catch (error) {
@@ -294,8 +299,10 @@
           );
 
           const userData = JSON.parse(jsonPayload);
+          console.log("📧 Datos de Google:", userData);
 
           // Primero intentar registrar el usuario si no existe
+          console.log("📝 Intentando registrar usuario...");
           try {
             const registerResponse = await fetch(`${API_URL}/auth/register`, {
               method: "POST",
@@ -308,12 +315,23 @@
             });
 
             const registerData = await registerResponse.json();
-            // No importa si falla (usuario ya existe), continuamos con login
+            console.log("✅ Respuesta de registro:", registerData);
+
+            // Si el registro fue exitoso, usar directamente el token
+            if (registerData.accessToken) {
+              console.log("✅ Usuario registrado exitosamente con Google");
+              localStorage.setItem("vivacweb_token", registerData.accessToken);
+              localStorage.setItem("vivacweb_user", JSON.stringify(registerData.user));
+              alert("¡Bienvenido " + registerData.user.userName + "!");
+              window.location.href = "dashboard.html";
+              return;
+            }
           } catch (e) {
-            console.log("Usuario probablemente ya existe");
+            console.log("⚠️ Error en registro:", e.message);
           }
 
-          // Ahora hacer login con el email y contraseña de Google
+          // Si el registro falló o el usuario ya existe, intentar login
+          console.log("🔐 Intentando login con Google...");
           const loginResponse = await fetch(`${API_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -324,27 +342,34 @@
           });
 
           const loginData = await loginResponse.json();
+          console.log("✅ Respuesta de login:", loginData);
 
-          if (loginData.success) {
+          // El backend devuelve accessToken si es exitoso
+          if (loginData.accessToken) {
             // Guardar datos del usuario en localStorage
-            localStorage.setItem("vivacweb_token", loginData.token);
+            localStorage.setItem("vivacweb_token", loginData.accessToken);
             localStorage.setItem(
               "vivacweb_user",
               JSON.stringify(loginData.user)
             );
 
             // Mostrar mensaje de éxito
-            alert("¡Login con Google exitoso! Bienvenido " + loginData.user.name);
+            alert("¡Login con Google exitoso! Bienvenido " + loginData.user.userName);
 
             // Redirigir al dashboard
             window.location.href = "dashboard.html";
+          } else if (loginData.message) {
+            console.error("❌ Error de login:", loginData.message);
+            errorMessage.textContent = "* " + loginData.message;
+            errorMessage.classList.add("show");
           } else {
-            errorMessage.textContent = "* " + (loginData.message || "Error al iniciar sesión con Google");
+            console.error("❌ Error desconocido:", loginData);
+            errorMessage.textContent = "* Error al iniciar sesión con Google";
             errorMessage.classList.add("show");
           }
         } catch (error) {
           console.error("Google Sign-In error:", error);
-          errorMessage.textContent = "* Error al iniciar sesión con Google";
+          errorMessage.textContent = "* Error al iniciar sesión con Google: " + error.message;
           errorMessage.classList.add("show");
         }
       }
