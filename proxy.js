@@ -21,8 +21,14 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // Solo permitir POST para endpoints de autenticación
-    if ((req.url === '/auth/login' || req.url === '/auth/register' || req.url === '/auth/request-password-reset' || req.url === '/auth/reset-password') && req.method === 'POST') {
+    // Permitir POST para endpoints de autenticación y vivacs
+    const isAuthEndpoint = (req.url === '/auth/login' || req.url === '/auth/register' || req.url === '/auth/request-password-reset' || req.url === '/auth/reset-password') && req.method === 'POST';
+    const isVivacsEndpoint = req.url === '/vivacs' && req.method === 'POST';
+    const isUploadPhotosEndpoint = /^\/vivacs\/[^/]+\/upload-photos$/.test(req.url) && req.method === 'POST';
+    const isDeletePhotosEndpoint = /^\/vivacs\/[^/]+\/delete-photos$/.test(req.url) && req.method === 'DELETE';
+
+    if (isAuthEndpoint || isVivacsEndpoint) {
+        // Manejar JSON endpoints
         let body = '';
 
         req.on('data', chunk => {
@@ -41,8 +47,83 @@ const server = http.createServer((req, res) => {
                     }
                 };
 
+                // Pasar el header Authorization si existe
+                if (req.headers.authorization) {
+                    options.headers['Authorization'] = req.headers.authorization;
+                    console.log(`🔐 Authorization header encontrado`);
+                }
+
                 console.log(`📤 Enviando a: ${backendUrl}`);
                 console.log(`📦 Datos:`, body);
+
+                const proxyReq = https.request(backendUrl, options, (proxyRes) => {
+                    let responseBody = '';
+
+                    proxyRes.on('data', chunk => {
+                        responseBody += chunk.toString();
+                    });
+
+                    proxyRes.on('end', () => {
+                        console.log(`📥 Status: ${proxyRes.statusCode}`);
+                        console.log(`📥 Respuesta:`, responseBody);
+
+                        res.writeHead(proxyRes.statusCode, {
+                            'Access-Control-Allow-Origin': '*',
+                            'Content-Type': 'application/json'
+                        });
+                        res.end(responseBody);
+                    });
+                });
+
+                proxyReq.on('error', (error) => {
+                    console.error('❌ Error en proxy:', error.message);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({
+                        success: false,
+                        message: 'Error conectando con el servidor backend: ' + error.message
+                    }));
+                });
+
+                proxyReq.write(body);
+                proxyReq.end();
+            } catch (error) {
+                console.error('❌ Error:', error.message);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({
+                    success: false,
+                    message: 'Error en el proxy: ' + error.message
+                }));
+            }
+        });
+    } else if (isUploadPhotosEndpoint || isDeletePhotosEndpoint) {
+        // Manejar endpoints de fotos (multipart/form-data o binary)
+        let chunks = [];
+
+        req.on('data', chunk => {
+            chunks.push(chunk);
+        });
+
+        req.on('end', () => {
+            try {
+                const backendUrl = BACKEND_URL + req.url;
+                const body = Buffer.concat(chunks);
+
+                const options = {
+                    method: req.method,
+                    headers: {
+                        'Content-Type': req.headers['content-type'],
+                        'Content-Length': body.length
+                    }
+                };
+
+                // Pasar el header Authorization si existe
+                if (req.headers.authorization) {
+                    options.headers['Authorization'] = req.headers.authorization;
+                    console.log(`🔐 Authorization header encontrado`);
+                }
+
+                console.log(`📤 Enviando a: ${backendUrl}`);
+                console.log(`📦 Tamaño: ${body.length} bytes`);
 
                 const proxyReq = https.request(backendUrl, options, (proxyRes) => {
                     let responseBody = '';
@@ -140,5 +221,8 @@ server.listen(PROXY_PORT, () => {
     console.log(`   - POST http://localhost:${PROXY_PORT}/auth/register`);
     console.log(`   - POST http://localhost:${PROXY_PORT}/auth/request-password-reset`);
     console.log(`   - POST http://localhost:${PROXY_PORT}/auth/reset-password`);
+    console.log(`   - POST http://localhost:${PROXY_PORT}/vivacs`);
+    console.log(`   - POST http://localhost:${PROXY_PORT}/vivacs/{id}/upload-photos`);
+    console.log(`   - DELETE http://localhost:${PROXY_PORT}/vivacs/{id}/delete-photos`);
 });
 

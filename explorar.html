@@ -179,78 +179,7 @@
                 </section>
             </div>
 
-            <!-- Filter Modal -->
-            <div class="filter-modal-overlay" id="filterModalOverlay"></div>
-            <div class="filter-modal" id="filterModal">
-                <div class="filter-modal-content">
-                    <div class="filter-modal-header">
-                        <h2>Filtros</h2>
-                        <button class="filter-close-btn" id="filterCloseBtn">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                    <div class="filter-modal-body">
-                        <!-- Altitude Filter -->
-                        <div class="filter-group">
-                            <h3 class="filter-title">Altitud (metros)</h3>
-                            <div class="altitude-display">
-                                <span id="altitudeMin">0</span>m - <span id="altitudeMax">100</span>m
-                            </div>
-                            <div class="range-slider-container">
-                                <input type="range" id="altitudeMinSlider" class="range-slider" min="0" max="100" value="0">
-                                <input type="range" id="altitudeMaxSlider" class="range-slider" min="0" max="100" value="100">
-                            </div>
-                        </div>
-
-                        <!-- Isolation Filter -->
-                        <div class="filter-group">
-                            <h3 class="filter-title">Aislamiento</h3>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="isolation" value="poblacion">
-                                    <span>Población cerca</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="isolation" value="ligeramente">
-                                    <span>Ligeramente aislado</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="isolation" value="muy">
-                                    <span>Muy aislado</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="isolation" value="remoto">
-                                    <span>Remoto</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Difficulty Filter -->
-                        <div class="filter-group">
-                            <h3 class="filter-title">Dificultad</h3>
-                            <div class="checkbox-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="difficulty" value="facil">
-                                    <span>Fácil</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="difficulty" value="moderado">
-                                    <span>Moderado</span>
-                                </label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="difficulty" value="dificil">
-                                    <span>Difícil</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filter-modal-footer">
-                        <button class="filter-btn-secondary" id="filterResetBtn">Limpiar filtros</button>
-                        <button class="filter-btn-primary" id="filterApplyBtn">Aplicar filtros</button>
-                    </div>
-                </div>
-            </div>
-        </main>
+            
     </div>
 
     <script src="dashboard-script.js"></script>
