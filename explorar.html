@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="dashboard-styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
     <div class="dashboard-wrapper">
@@ -53,13 +54,83 @@
                         <input type="text" class="search-input" placeholder="Buscar una localización...">
                     </div>
                     <div class="control-buttons">
-                        <button class="control-btn" id="filterBtn" title="Abrir filtros">
-                            <i class="fas fa-sliders-h"></i>
-                            <span>Filtros</span>
+                        <button class="control-btn" id="mapViewBtn" title="Ver mapa">
+                            <i class="fas fa-map"></i>
+                            <span>Mapa</span>
                         </button>
                     </div>
                 </div>
             </section>
+
+            <!-- Map Container (Hidden by default) -->
+            <div class="map-container" id="mapContainer" style="display: none;">
+                <div id="map"></div>
+            </div>
+
+            <!-- Vivac Detail Card Modal -->
+            <div class="vivac-detail-modal" id="vivacDetailModal">
+                <div class="vivac-detail-card">
+                    <button class="close-btn" id="closeDetailBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <div class="detail-image-container">
+                        <img id="detailImage" src="" alt="Vivac" class="detail-image">
+                        <button class="detail-favorite-btn" id="detailFavoriteBtn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <div class="detail-content">
+                        <h2 id="detailName" class="detail-title"></h2>
+                        <p id="detailLocation" class="detail-location"></p>
+
+                        <div class="detail-rating">
+                            <i class="fas fa-star"></i>
+                            <span id="detailRating" class="rating-value"></span>
+                            <span id="detailReviews" class="reviews-count"></span>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Localización</h3>
+                            <div class="detail-coordinates">
+                                <div class="coordinate-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span id="detailCoordinates"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Especificaciones</h3>
+                            <div id="detailSpecifications" class="specifications-list">
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3>Añade una reseña para ayudar a otros usuarios</h3>
+                            <div class="rating-input">
+                                <div class="stars-input" id="starsInput">
+                                    <i class="far fa-star" data-rating="1"></i>
+                                    <i class="far fa-star" data-rating="2"></i>
+                                    <i class="far fa-star" data-rating="3"></i>
+                                    <i class="far fa-star" data-rating="4"></i>
+                                    <i class="far fa-star" data-rating="5"></i>
+                                </div>
+                                <span id="selectedRating" class="selected-rating"></span>
+                            </div>
+                            <textarea id="reviewText" class="review-textarea" placeholder="Comparte tu experiencia..."></textarea>
+                            <button class="submit-review-btn">Enviar reseña</button>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3 id="reviewsTitle">4 Reseñas</h3>
+                            <div id="reviewsList" class="reviews-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Locations Content -->
             <div class="locations-content">
@@ -179,9 +250,10 @@
                 </section>
             </div>
 
-            
+
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <script src="dashboard-script.js"></script>
 </body>
 </html>

@@ -621,29 +621,83 @@
 
                 // 2. Subir fotos si existen
                 if (selectedFiles.length > 0) {
-                    console.log('📸 Subiendo', selectedFiles.length, 'foto(s)...');
+                    console.log('📸 Subiendo', selectedFiles.length, 'foto(s) a Cloudinary...');
+                    console.log('📸 Vivac ID:', vivacId);
 
-                    const photoFormData = new FormData();
-                    selectedFiles.forEach(file => {
-                        photoFormData.append('photos', file);
-                    });
+                    try {
+                        const photoUrls = [];
 
-                    const uploadResponse = await fetch(API_URL + `/vivacs/${vivacId}/upload-photos`, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: photoFormData
-                    });
+                        // Subir cada foto a Cloudinary
+                        for (let i = 0; i < selectedFiles.length; i++) {
+                            const file = selectedFiles[i];
+                            console.log(`📸 Subiendo archivo ${i + 1}/${selectedFiles.length}:`, file.name);
 
-                    console.log('📸 Upload response status:', uploadResponse.status);
-                    const uploadData = await uploadResponse.json();
-                    console.log('📸 Upload response:', uploadData);
+                            const photoFormData = new FormData();
+                            photoFormData.append('file', file);
 
-                    if (!uploadResponse.ok) {
-                        console.warn('⚠️ Advertencia: Vivac creado pero hubo error al subir fotos');
-                    } else {
-                        console.log('✅ Fotos subidas exitosamente');
+                            const uploadUrl = API_URL + '/images/upload';
+                            console.log('📸 URL de upload:', uploadUrl);
+
+                            const uploadResponse = await fetch(uploadUrl, {
+                                method: 'POST',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: photoFormData
+                            });
+
+                            console.log(`📸 Upload response status (${i + 1}):`, uploadResponse.status);
+                            const uploadText = await uploadResponse.text();
+                            console.log(`📸 Upload response text (${i + 1}):`, uploadText);
+
+                            if (!uploadResponse.ok) {
+                                console.warn(`⚠️ Error al subir foto ${i + 1}`);
+                                continue;
+                            }
+
+                            try {
+                                const uploadData = JSON.parse(uploadText);
+                                console.log(`📸 Upload response JSON (${i + 1}):`, uploadData);
+
+                                if (uploadData.url) {
+                                    photoUrls.push(uploadData.url);
+                                    console.log(`✅ Foto ${i + 1} subida: ${uploadData.url}`);
+                                }
+                            } catch (e) {
+                                console.warn(`⚠️ No se pudo parsear respuesta de upload ${i + 1}:`, uploadText);
+                            }
+                        }
+
+                        // 3. Actualizar el vivac con las URLs de las fotos
+                        if (photoUrls.length > 0) {
+                            console.log('📸 Actualizando vivac con URLs de fotos:', photoUrls);
+
+                            const updateData = {
+                                photoUrls: photoUrls
+                            };
+
+                            const updateResponse = await fetch(API_URL + `/vivacs/${vivacId}`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify(updateData)
+                            });
+
+                            console.log('📸 Update response status:', updateResponse.status);
+                            const updateText = await updateResponse.text();
+                            console.log('📸 Update response text:', updateText);
+
+                            if (updateResponse.ok) {
+                                console.log('✅ Vivac actualizado con fotos exitosamente');
+                            } else {
+                                console.warn('⚠️ Error al actualizar vivac con fotos');
+                            }
+                        }
+                    } catch (photoError) {
+                        console.error('❌ Error al subir fotos:', photoError);
+                        console.warn('⚠️ Vivac creado pero hubo error al subir fotos');
                     }
                 }
 

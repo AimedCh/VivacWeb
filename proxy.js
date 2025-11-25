@@ -24,10 +24,19 @@ const server = http.createServer((req, res) => {
     // Permitir POST para endpoints de autenticación y vivacs
     const isAuthEndpoint = (req.url === '/auth/login' || req.url === '/auth/register' || req.url === '/auth/request-password-reset' || req.url === '/auth/reset-password') && req.method === 'POST';
     const isVivacsEndpoint = req.url === '/vivacs' && req.method === 'POST';
+    const isUpdateVivacEndpoint = /^\/vivacs\/[^/]+$/.test(req.url) && req.method === 'PATCH';
     const isUploadPhotosEndpoint = /^\/vivacs\/[^/]+\/upload-photos$/.test(req.url) && req.method === 'POST';
     const isDeletePhotosEndpoint = /^\/vivacs\/[^/]+\/delete-photos$/.test(req.url) && req.method === 'DELETE';
+    const isUploadImageEndpoint = req.url === '/images/upload' && req.method === 'POST';
 
-    if (isAuthEndpoint || isVivacsEndpoint) {
+    console.log(`📋 isAuthEndpoint: ${isAuthEndpoint}`);
+    console.log(`📋 isVivacsEndpoint: ${isVivacsEndpoint}`);
+    console.log(`📋 isUpdateVivacEndpoint: ${isUpdateVivacEndpoint}`);
+    console.log(`📋 isUploadPhotosEndpoint: ${isUploadPhotosEndpoint}`);
+    console.log(`📋 isDeletePhotosEndpoint: ${isDeletePhotosEndpoint}`);
+    console.log(`📋 isUploadImageEndpoint: ${isUploadImageEndpoint}`);
+
+    if (isAuthEndpoint || isVivacsEndpoint || isUpdateVivacEndpoint || isUploadImageEndpoint) {
         // Manejar JSON endpoints
         let body = '';
 
@@ -225,4 +234,4 @@ server.listen(PROXY_PORT, () => {
     console.log(`   - POST http://localhost:${PROXY_PORT}/vivacs/{id}/upload-photos`);
     console.log(`   - DELETE http://localhost:${PROXY_PORT}/vivacs/{id}/delete-photos`);
 });
-
+    

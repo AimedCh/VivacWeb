@@ -30,7 +30,6 @@ function initializeApp() {
     setupMenuToggle();
     setupLogout();
     setupMap();
-    setupFilters();
 }
 
 // ============================================
@@ -160,44 +159,129 @@ function initializeMap() {
         // Datos de ubicaciones
         const locationsData = [
             {
+                id: 1,
                 name: 'Mirador del Alto de la Sierra',
                 location: 'Tibi, España',
                 lat: 38.6295,
                 lng: -0.5167,
                 rating: 4.5,
-                reviews: 10
+                reviews: 10,
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+                coordinates: '38.6295, -0.5167',
+                specifications: {
+                    'Altitud': '850m',
+                    'Aislamiento': 'Alto',
+                    'Dificultad': 'Media',
+                    'Agua': 'Sí'
+                },
+                reviews_list: [
+                    {
+                        author: 'Carmen',
+                        rating: 4.5,
+                        date: '28/02/2025',
+                        text: 'Lugar increíble con vistas espectaculares. Muy recomendado.'
+                    }
+                ]
             },
             {
+                id: 2,
                 name: 'Bosque de Pinos',
                 location: 'Segovia, España',
                 lat: 40.9429,
                 lng: -4.1186,
                 rating: 4.0,
-                reviews: 8
+                reviews: 8,
+                image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop',
+                coordinates: '40.9429, -4.1186',
+                specifications: {
+                    'Altitud': '1200m',
+                    'Aislamiento': 'Medio',
+                    'Dificultad': 'Fácil',
+                    'Agua': 'No'
+                },
+                reviews_list: [
+                    {
+                        author: 'Juan',
+                        rating: 4.0,
+                        date: '15/02/2025',
+                        text: 'Bosque tranquilo y bien conservado.'
+                    }
+                ]
             },
             {
+                id: 3,
                 name: 'Lago de Montaña',
                 location: 'Asturias, España',
                 lat: 43.2627,
                 lng: -5.0236,
                 rating: 4.7,
-                reviews: 15
+                reviews: 15,
+                image: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=400&h=300&fit=crop',
+                coordinates: '43.2627, -5.0236',
+                specifications: {
+                    'Altitud': '1500m',
+                    'Aislamiento': 'Muy Alto',
+                    'Dificultad': 'Difícil',
+                    'Agua': 'Sí'
+                },
+                reviews_list: [
+                    {
+                        author: 'María',
+                        rating: 4.7,
+                        date: '10/02/2025',
+                        text: 'Hermoso lago de montaña. Acceso un poco complicado pero vale la pena.'
+                    }
+                ]
             },
             {
+                id: 4,
                 name: 'Playa Escondida',
                 location: 'Málaga, España',
                 lat: 36.7213,
                 lng: -3.7345,
                 rating: 4.6,
-                reviews: 18
+                reviews: 18,
+                image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop',
+                coordinates: '36.7213, -3.7345',
+                specifications: {
+                    'Altitud': '50m',
+                    'Aislamiento': 'Bajo',
+                    'Dificultad': 'Fácil',
+                    'Agua': 'Sí'
+                },
+                reviews_list: [
+                    {
+                        author: 'Pedro',
+                        rating: 4.6,
+                        date: '05/02/2025',
+                        text: 'Playa perfecta para relajarse. Muy bonita al atardecer.'
+                    }
+                ]
             },
             {
+                id: 5,
                 name: 'Valle Verde',
                 location: 'Navarra, España',
                 lat: 42.8139,
                 lng: -1.6432,
                 rating: 4.8,
-                reviews: 25
+                reviews: 25,
+                image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
+                coordinates: '42.8139, -1.6432',
+                specifications: {
+                    'Altitud': '900m',
+                    'Aislamiento': 'Alto',
+                    'Dificultad': 'Media',
+                    'Agua': 'Sí'
+                },
+                reviews_list: [
+                    {
+                        author: 'Ana',
+                        rating: 4.8,
+                        date: '01/02/2025',
+                        text: 'Valle hermoso con mucha naturaleza. Ideal para desconectar.'
+                    }
+                ]
             }
         ];
 
@@ -215,6 +299,11 @@ function initializeMap() {
                     </div>
                 </div>
             `);
+
+            // Agregar evento click al marcador para mostrar la tarjeta detallada
+            marker.on('click', function() {
+                showVivacDetail(location);
+            });
         });
 
         console.log('✅ Mapa inicializado correctamente');
@@ -224,98 +313,61 @@ function initializeMap() {
 }
 
 // ============================================
-// FILTROS
+// VIVAC DETAIL MODAL
 // ============================================
 
-function setupFilters() {
-    const filterBtn = document.getElementById('filterBtn');
-    const filterModal = document.getElementById('filterModal');
-    const filterModalOverlay = document.getElementById('filterModalOverlay');
-    const filterCloseBtn = document.getElementById('filterCloseBtn');
-    const filterResetBtn = document.getElementById('filterResetBtn');
-    const filterApplyBtn = document.getElementById('filterApplyBtn');
+function showVivacDetail(location) {
+    const modal = document.getElementById('vivacDetailModal');
 
-    if (!filterBtn || !filterModal || !filterModalOverlay) return;
+    // Llenar datos de la tarjeta
+    document.getElementById('detailImage').src = location.image;
+    document.getElementById('detailName').textContent = location.name;
+    document.getElementById('detailLocation').textContent = location.location;
+    document.getElementById('detailRating').textContent = location.rating;
+    document.getElementById('detailReviews').textContent = `${location.reviews} reviews`;
+    document.getElementById('detailCoordinates').textContent = location.coordinates;
 
-    // Abrir modal
-    filterBtn.addEventListener('click', function() {
-        filterModal.classList.add('active');
-        filterModalOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-
-    // Cerrar modal
-    function closeFilterModal() {
-        filterModal.classList.remove('active');
-        filterModalOverlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
+    // Llenar especificaciones
+    const specsList = document.getElementById('detailSpecifications');
+    specsList.innerHTML = '';
+    for (const [key, value] of Object.entries(location.specifications)) {
+        const specItem = document.createElement('div');
+        specItem.className = 'spec-item';
+        specItem.innerHTML = `<span class="spec-label">${key}</span>${value}`;
+        specsList.appendChild(specItem);
     }
 
-    if (filterCloseBtn) {
-        filterCloseBtn.addEventListener('click', closeFilterModal);
-    }
-
-    filterModalOverlay.addEventListener('click', closeFilterModal);
-
-    // Sliders de altitud
-    const altitudeMinSlider = document.getElementById('altitudeMinSlider');
-    const altitudeMaxSlider = document.getElementById('altitudeMaxSlider');
-    const altitudeMinDisplay = document.getElementById('altitudeMin');
-    const altitudeMaxDisplay = document.getElementById('altitudeMax');
-
-    function updateAltitudeSliders() {
-        if (!altitudeMinSlider || !altitudeMaxSlider) return;
-
-        let minVal = parseInt(altitudeMinSlider.value);
-        let maxVal = parseInt(altitudeMaxSlider.value);
-
-        if (minVal > maxVal) {
-            [minVal, maxVal] = [maxVal, minVal];
-            altitudeMinSlider.value = minVal;
-            altitudeMaxSlider.value = maxVal;
-        }
-
-        if (altitudeMinDisplay) altitudeMinDisplay.textContent = minVal;
-        if (altitudeMaxDisplay) altitudeMaxDisplay.textContent = maxVal;
-    }
-
-    if (altitudeMinSlider && altitudeMaxSlider) {
-        altitudeMinSlider.addEventListener('input', updateAltitudeSliders);
-        altitudeMaxSlider.addEventListener('input', updateAltitudeSliders);
-    }
-
-    // Limpiar filtros
-    if (filterResetBtn) {
-        filterResetBtn.addEventListener('click', function() {
-            if (altitudeMinSlider) altitudeMinSlider.value = 0;
-            if (altitudeMaxSlider) altitudeMaxSlider.value = 100;
-            updateAltitudeSliders();
-
-            document.querySelectorAll('.checkbox-label input[type="checkbox"]').forEach(checkbox => {
-                checkbox.checked = false;
-            });
+    // Llenar reseñas
+    const reviewsList = document.getElementById('reviewsList');
+    reviewsList.innerHTML = '';
+    if (location.reviews_list && location.reviews_list.length > 0) {
+        location.reviews_list.forEach(review => {
+            const reviewItem = document.createElement('div');
+            reviewItem.className = 'review-item';
+            const starsHTML = Array(5).fill(0).map((_, i) =>
+                `<i class="fas fa-star" style="color: ${i < Math.floor(review.rating) ? '#fbbf24' : '#ddd'};"></i>`
+            ).join('');
+            reviewItem.innerHTML = `
+                <div class="review-header">
+                    <span class="review-author">${review.author}</span>
+                    <span class="review-date">${review.date}</span>
+                </div>
+                <div class="review-rating">${starsHTML}</div>
+                <p class="review-text">${review.text}</p>
+            `;
+            reviewsList.appendChild(reviewItem);
         });
     }
 
-    // Aplicar filtros
-    if (filterApplyBtn) {
-        filterApplyBtn.addEventListener('click', function() {
-            const altitudeMin = altitudeMinSlider ? parseInt(altitudeMinSlider.value) : 0;
-            const altitudeMax = altitudeMaxSlider ? parseInt(altitudeMaxSlider.value) : 100;
+    // Mostrar modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
 
-            const isolationFilters = Array.from(document.querySelectorAll('input[name="isolation"]:checked')).map(cb => cb.value);
-            const difficultyFilters = Array.from(document.querySelectorAll('input[name="difficulty"]:checked')).map(cb => cb.value);
-
-            console.log('✅ Filtros aplicados:', {
-                altitud: { min: altitudeMin, max: altitudeMax },
-                aislamiento: isolationFilters,
-                dificultad: difficultyFilters
-            });
-
-            closeFilterModal();
-            alert('Filtros aplicados: Altitud ' + altitudeMin + 'm - ' + altitudeMax + 'm');
-        });
-    }
+function closeVivacDetail() {
+    const modal = document.getElementById('vivacDetailModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
 }
 
 // ============================================
@@ -327,4 +379,61 @@ if (document.readyState === 'loading') {
 } else {
     initializeApp();
 }
+
+// Configurar eventos del modal
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('vivacDetailModal');
+    const closeBtn = document.getElementById('closeDetailBtn');
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeVivacDetail);
+    }
+
+    // Cerrar modal al hacer clic fuera
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeVivacDetail();
+            }
+        });
+    }
+
+    // Configurar estrellas de rating
+    const starsInput = document.getElementById('starsInput');
+    if (starsInput) {
+        const stars = starsInput.querySelectorAll('i');
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                document.getElementById('selectedRating').textContent = `${rating} estrellas`;
+
+                stars.forEach(s => s.classList.remove('active'));
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.add('active');
+                }
+            });
+
+            star.addEventListener('mouseover', function() {
+                const rating = this.dataset.rating;
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.style.color = '#fbbf24';
+                    } else {
+                        s.style.color = '#ddd';
+                    }
+                });
+            });
+        });
+
+        starsInput.addEventListener('mouseleave', function() {
+            stars.forEach(s => {
+                if (s.classList.contains('active')) {
+                    s.style.color = '#fbbf24';
+                } else {
+                    s.style.color = '#ddd';
+                }
+            });
+        });
+    }
+});
 
