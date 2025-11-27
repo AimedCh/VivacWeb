@@ -15,6 +15,11 @@ window.addEventListener('load', async function() {
 
     console.log('✅ Token encontrado');
 
+    // Cargar vivacs desde la API
+    if (typeof loadVivacs === 'function') {
+        await loadVivacs();
+    }
+
     // Inicializar favoritos si la función existe
     if (typeof initializeFavorites === 'function') {
         initializeFavorites();
@@ -145,7 +150,7 @@ function setupMap() {
     });
 }
 
-function initializeMap() {
+async function initializeMap() {
     try {
         // Crear mapa centrado en España
         map = L.map('map').setView([40.4637, -3.7492], 6);
@@ -156,137 +161,58 @@ function initializeMap() {
             maxZoom: 19
         }).addTo(map);
 
-        // Datos de ubicaciones
-        const locationsData = [
-            {
-                id: 1,
-                name: 'Mirador del Alto de la Sierra',
-                location: 'Tibi, España',
-                lat: 38.6295,
-                lng: -0.5167,
-                rating: 4.5,
-                reviews: 10,
-                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
-                coordinates: '38.6295, -0.5167',
-                specifications: {
-                    'Altitud': '850m',
-                    'Aislamiento': 'Alto',
-                    'Dificultad': 'Media',
-                    'Agua': 'Sí'
-                },
-                reviews_list: [
-                    {
-                        author: 'Carmen',
-                        rating: 4.5,
-                        date: '28/02/2025',
-                        text: 'Lugar increíble con vistas espectaculares. Muy recomendado.'
-                    }
-                ]
-            },
-            {
-                id: 2,
-                name: 'Bosque de Pinos',
-                location: 'Segovia, España',
-                lat: 40.9429,
-                lng: -4.1186,
-                rating: 4.0,
-                reviews: 8,
-                image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&h=300&fit=crop',
-                coordinates: '40.9429, -4.1186',
-                specifications: {
-                    'Altitud': '1200m',
-                    'Aislamiento': 'Medio',
-                    'Dificultad': 'Fácil',
-                    'Agua': 'No'
-                },
-                reviews_list: [
-                    {
-                        author: 'Juan',
-                        rating: 4.0,
-                        date: '15/02/2025',
-                        text: 'Bosque tranquilo y bien conservado.'
-                    }
-                ]
-            },
-            {
-                id: 3,
-                name: 'Lago de Montaña',
-                location: 'Asturias, España',
-                lat: 43.2627,
-                lng: -5.0236,
-                rating: 4.7,
-                reviews: 15,
-                image: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=400&h=300&fit=crop',
-                coordinates: '43.2627, -5.0236',
-                specifications: {
-                    'Altitud': '1500m',
-                    'Aislamiento': 'Muy Alto',
-                    'Dificultad': 'Difícil',
-                    'Agua': 'Sí'
-                },
-                reviews_list: [
-                    {
-                        author: 'María',
-                        rating: 4.7,
-                        date: '10/02/2025',
-                        text: 'Hermoso lago de montaña. Acceso un poco complicado pero vale la pena.'
-                    }
-                ]
-            },
-            {
-                id: 4,
-                name: 'Playa Escondida',
-                location: 'Málaga, España',
-                lat: 36.7213,
-                lng: -3.7345,
-                rating: 4.6,
-                reviews: 18,
-                image: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=400&h=300&fit=crop',
-                coordinates: '36.7213, -3.7345',
-                specifications: {
-                    'Altitud': '50m',
-                    'Aislamiento': 'Bajo',
-                    'Dificultad': 'Fácil',
-                    'Agua': 'Sí'
-                },
-                reviews_list: [
-                    {
-                        author: 'Pedro',
-                        rating: 4.6,
-                        date: '05/02/2025',
-                        text: 'Playa perfecta para relajarse. Muy bonita al atardecer.'
-                    }
-                ]
-            },
-            {
-                id: 5,
-                name: 'Valle Verde',
-                location: 'Navarra, España',
-                lat: 42.8139,
-                lng: -1.6432,
-                rating: 4.8,
-                reviews: 25,
-                image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-                coordinates: '42.8139, -1.6432',
-                specifications: {
-                    'Altitud': '900m',
-                    'Aislamiento': 'Alto',
-                    'Dificultad': 'Media',
-                    'Agua': 'Sí'
-                },
-                reviews_list: [
-                    {
-                        author: 'Ana',
-                        rating: 4.8,
-                        date: '01/02/2025',
-                        text: 'Valle hermoso con mucha naturaleza. Ideal para desconectar.'
-                    }
-                ]
-            }
-        ];
+        // Traer todos los vivacs de la API
+        console.log('📡 Obteniendo vivacs de la API...');
+        const token = localStorage.getItem('vivacweb_token');
 
-        // Agregar marcadores
-        locationsData.forEach(location => {
+        // Agregar parámetros de paginación para obtener todos los vivacs
+        const url = new URL('http://localhost:3001/vivacs');
+        url.searchParams.append('page', '1');
+        url.searchParams.append('limit', '100'); // Obtener hasta 100 vivacs
+
+        const response = await fetch(url.toString(), {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la API: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Manejar respuesta que puede ser un array o un objeto con data
+        const vivacs = Array.isArray(data) ? data : (data.data || data.vivacs || []);
+        console.log(`✅ Se obtuvieron ${vivacs.length} vivacs de la API`);
+
+        // Procesar y agregar marcadores para cada vivac
+        vivacs.forEach(vivac => {
+            // Crear objeto de ubicación con datos de la API
+            const location = {
+                id: vivac.id,
+                name: vivac.name,
+                location: `${vivac.name}, España`, // Usar el nombre como ubicación
+                lat: parseFloat(vivac.latitude),
+                lng: parseFloat(vivac.longitude),
+                rating: vivac.avgRating || 0,
+                reviews: vivac.reviewCount || 0,
+                image: vivac.photoUrls && vivac.photoUrls.length > 0
+                    ? vivac.photoUrls[0]
+                    : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
+                coordinates: `${vivac.latitude}, ${vivac.longitude}`,
+                specifications: {
+                    'Altitud': `${vivac.elevation}m`,
+                    'Dificultad': vivac.accessDifficulty || 'No especificada',
+                    'Tipo de terreno': vivac.terrainType || 'No especificado',
+                    'Mascotas': vivac.petFriendly ? 'Sí' : 'No'
+                },
+                reviews_list: []
+            };
+
+            // Agregar marcador al mapa
             const marker = L.marker([location.lat, location.lng]).addTo(map);
             marker.bindPopup(`
                 <div style="font-family: Inter, sans-serif; width: 200px;">
@@ -294,7 +220,7 @@ function initializeMap() {
                     <p style="margin: 0 0 8px 0; font-size: 12px; color: #666;">${location.location}</p>
                     <div style="display: flex; align-items: center; gap: 4px; font-size: 12px;">
                         <i class="fas fa-star" style="color: #fbbf24;"></i>
-                        <span style="font-weight: 600;">${location.rating}</span>
+                        <span style="font-weight: 600;">${location.rating.toFixed(1)}</span>
                         <span style="color: #999;">${location.reviews} reviews</span>
                     </div>
                 </div>
@@ -306,9 +232,10 @@ function initializeMap() {
             });
         });
 
-        console.log('✅ Mapa inicializado correctamente');
+        console.log('✅ Mapa inicializado correctamente con todos los vivacs');
     } catch (error) {
         console.error('❌ Error inicializando mapa:', error);
+        alert('Error al cargar los vivacs en el mapa. Por favor, recarga la página.');
     }
 }
 
@@ -437,3 +364,110 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// ============================================
+// CARGAR VIVACS DESDE LA API
+// ============================================
+
+async function loadVivacs() {
+    try {
+        console.log('📡 Cargando vivacs desde la API...');
+        const token = localStorage.getItem('vivacweb_token');
+
+        // Agregar parámetros de paginación para obtener todos los vivacs
+        const url = new URL('http://localhost:3001/vivacs');
+        url.searchParams.append('page', '1');
+        url.searchParams.append('limit', '100'); // Obtener hasta 100 vivacs
+
+        const response = await fetch(url.toString(), {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error en la API: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Manejar respuesta que puede ser un array o un objeto con data
+        const vivacs = Array.isArray(data) ? data : (data.data || data.vivacs || []);
+        console.log(`✅ Se obtuvieron ${vivacs.length} vivacs de la API`);
+
+        // Renderizar tarjetas de vivacs
+        renderVivacCards(vivacs);
+    } catch (error) {
+        console.error('❌ Error cargando vivacs:', error);
+    }
+}
+
+function renderVivacCards(vivacs) {
+    const locationsGrid = document.querySelector('.locations-grid');
+    if (!locationsGrid) return;
+
+    // Limpiar tarjetas existentes
+    locationsGrid.innerHTML = '';
+
+    // Crear tarjeta para cada vivac
+    vivacs.forEach(vivac => {
+        const card = document.createElement('div');
+        card.className = 'location-card';
+
+        const imageUrl = vivac.photoUrls && vivac.photoUrls.length > 0
+            ? vivac.photoUrls[0]
+            : 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop';
+
+        const rating = vivac.avgRating || 0;
+        const reviews = vivac.reviewCount || 0;
+
+        card.innerHTML = `
+            <div class="card-image">
+                <img src="${imageUrl}" alt="${vivac.name}" onerror="this.src='https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop'">
+                <button class="favorite-btn" title="Agregar a favoritos">
+                    <i class="far fa-heart"></i>
+                </button>
+            </div>
+            <div class="card-content">
+                <h3>${vivac.name}</h3>
+                <p class="location-name">${vivac.name}, España</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <span>${rating.toFixed(1)}</span>
+                    <span class="reviews">${reviews} reviews</span>
+                </div>
+            </div>
+        `;
+
+        // Agregar evento click para mostrar detalle
+        card.addEventListener('click', function() {
+            const location = {
+                id: vivac.id,
+                name: vivac.name,
+                location: `${vivac.name}, España`,
+                lat: parseFloat(vivac.latitude),
+                lng: parseFloat(vivac.longitude),
+                rating: rating,
+                reviews: reviews,
+                image: imageUrl,
+                coordinates: `${vivac.latitude}, ${vivac.longitude}`,
+                specifications: {
+                    'Altitud': `${vivac.elevation}m`,
+                    'Dificultad': vivac.accessDifficulty || 'No especificada',
+                    'Tipo de terreno': vivac.terrainType || 'No especificado',
+                    'Mascotas': vivac.petFriendly ? 'Sí' : 'No'
+                },
+                reviews_list: []
+            };
+            showVivacDetail(location);
+        });
+
+        locationsGrid.appendChild(card);
+    });
+
+    // Reinicializar favoritos
+    if (typeof initializeFavorites === 'function') {
+        initializeFavorites();
+    }
+}

@@ -21,9 +21,9 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // Permitir POST para endpoints de autenticación y vivacs
+    // Permitir POST/GET para endpoints de autenticación y vivacs
     const isAuthEndpoint = (req.url === '/auth/login' || req.url === '/auth/register' || req.url === '/auth/request-password-reset' || req.url === '/auth/reset-password') && req.method === 'POST';
-    const isVivacsEndpoint = req.url === '/vivacs' && req.method === 'POST';
+    const isVivacsEndpoint = (req.url.startsWith('/vivacs') && req.url.split('/').length === 2) && (req.method === 'POST' || req.method === 'GET');
     const isUpdateVivacEndpoint = /^\/vivacs\/[^/]+$/.test(req.url) && req.method === 'PATCH';
     const isUploadPhotosEndpoint = /^\/vivacs\/[^/]+\/upload-photos$/.test(req.url) && req.method === 'POST';
     const isDeletePhotosEndpoint = /^\/vivacs\/[^/]+\/delete-photos$/.test(req.url) && req.method === 'DELETE';
@@ -51,10 +51,14 @@ const server = http.createServer((req, res) => {
                 const options = {
                     method: req.method,
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Length': Buffer.byteLength(body)
+                        'Content-Type': 'application/json'
                     }
                 };
+
+                // Solo agregar Content-Length si hay body
+                if (body) {
+                    options.headers['Content-Length'] = Buffer.byteLength(body);
+                }
 
                 // Pasar el header Authorization si existe
                 if (req.headers.authorization) {
@@ -63,7 +67,9 @@ const server = http.createServer((req, res) => {
                 }
 
                 console.log(`📤 Enviando a: ${backendUrl}`);
-                console.log(`📦 Datos:`, body);
+                if (body) {
+                    console.log(`📦 Datos:`, body);
+                }
 
                 const proxyReq = https.request(backendUrl, options, (proxyRes) => {
                     let responseBody = '';
@@ -74,7 +80,7 @@ const server = http.createServer((req, res) => {
 
                     proxyRes.on('end', () => {
                         console.log(`📥 Status: ${proxyRes.statusCode}`);
-                        console.log(`📥 Respuesta:`, responseBody);
+                        console.log(`📥 Respuesta:`, responseBody.substring(0, 500)); // Limitar output
 
                         res.writeHead(proxyRes.statusCode, {
                             'Access-Control-Allow-Origin': '*',
@@ -93,7 +99,9 @@ const server = http.createServer((req, res) => {
                     }));
                 });
 
-                proxyReq.write(body);
+                if (body) {
+                    proxyReq.write(body);
+                }
                 proxyReq.end();
             } catch (error) {
                 console.error('❌ Error:', error.message);
@@ -230,6 +238,7 @@ server.listen(PROXY_PORT, () => {
     console.log(`   - POST http://localhost:${PROXY_PORT}/auth/register`);
     console.log(`   - POST http://localhost:${PROXY_PORT}/auth/request-password-reset`);
     console.log(`   - POST http://localhost:${PROXY_PORT}/auth/reset-password`);
+    console.log(`   - GET http://localhost:${PROXY_PORT}/vivacs`);
     console.log(`   - POST http://localhost:${PROXY_PORT}/vivacs`);
     console.log(`   - POST http://localhost:${PROXY_PORT}/vivacs/{id}/upload-photos`);
     console.log(`   - DELETE http://localhost:${PROXY_PORT}/vivacs/{id}/delete-photos`);
