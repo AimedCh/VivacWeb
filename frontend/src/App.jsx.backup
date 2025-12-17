@@ -1,0 +1,2393 @@
+import { useEffect, useState, useRef } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  CircleMarker,
+  useMapEvents,
+} from "react-leaflet";
+import L from "leaflet";
+import "./auth.css";
+
+const API_BASE_URL = "https://vivac-backend-production.up.railway.app";
+const GOOGLE_CLIENT_ID =
+  "118582736340-9fnfvji5lcb77k5t3sjq101pta6dakaj.apps.googleusercontent.com";
+
+const vivacMarkerIcon = L.divIcon({
+  className: "vivac-marker",
+  html: '<div class="vivac-marker-inner"><span class="material-symbols-outlined">camping</span></div>',
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+});
+
+function CreateVivacLocationMarker({ position, onPositionChange }) {
+  useMapEvents({
+    click(event) {
+      if (onPositionChange) {
+        onPositionChange([event.latlng.lat, event.latlng.lng]);
+      }
+    },
+  });
+
+  return <Marker position={position} icon={vivacMarkerIcon} />;
+}
+
+function ExploreVivacMarker({ spot, onMarkerClick }) {
+  const markerRef = useRef(null);
+
+  useEffect(() => {
+    if (markerRef.current) {
+      markerRef.current.on("click", () => {
+        if (onMarkerClick) {
+          onMarkerClick(spot);
+        }
+      });
+    }
+  }, [spot, onMarkerClick]);
+
+  return (
+    <Marker ref={markerRef} position={spot.position} icon={vivacMarkerIcon} />
+  );
+}
+
+function HomeScreen({ onLogout, onNavigate, spots = [] }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const nearbySpots =
+    spots.length > 0
+      ? spots.slice(0, 2)
+      : [
+          {
+            id: 1,
+            title: "Mirador del Alto de la Sierra",
+            location: "Tibi, España",
+            rating: "4.5",
+            reviews: "10 reviews",
+          },
+          {
+            id: 2,
+            title: "Mirador del Alto",
+            location: "Tibi, España",
+            rating: "4.0",
+            reviews: "4 reviews",
+          },
+        ];
+
+  const popularSpots =
+    spots.length > 2
+      ? spots.slice(2, 4)
+      : [
+          {
+            id: 3,
+            title: "Refugio del Bosque",
+            location: "Pirineos, España",
+            rating: "4.8",
+            reviews: "32 reviews",
+          },
+          {
+            id: 4,
+            title: "Playa Salvaje",
+            location: "Asturias, España",
+            rating: "4.7",
+            reviews: "18 reviews",
+          },
+        ];
+
+  return (
+    <div className="home-page">
+      <header className="home-header">
+        <div className="home-logo">
+          <img src="/logo.png" alt="Logo Vivac" />
+        </div>
+        <button
+          type="button"
+          className="home-menu-button"
+          onClick={() => setIsMenuOpen(true)}
+          aria-label="Abrir menú"
+        >
+          <span className="home-menu-button-bar" />
+          <span className="home-menu-button-bar" />
+          <span className="home-menu-button-bar" />
+        </button>
+      </header>
+
+      <main className="home-main">
+        <h1 className="home-title">
+          Descubre los mejores sitios
+          <br />
+          para hacer vivac
+        </h1>
+
+        <div className="home-search">
+          <span className="home-search-icon material-symbols-outlined">
+            search
+          </span>
+          <input
+            type="search"
+            placeholder="Buscar una localización..."
+            aria-label="Buscar una localización"
+          />
+        </div>
+
+        <section className="home-section">
+          <h2 className="home-section-title">Cerca de ti</h2>
+          <div className="home-carousel">
+            {nearbySpots.map((spot) => (
+              <article
+                key={spot.id}
+                className="spot-card"
+                onClick={() => onNavigate("vivacDetail", spot)}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="spot-card-image" />
+                <div className="spot-card-body">
+                  <h3 className="spot-card-title">{spot.title}</h3>
+                  <p className="spot-card-location">{spot.location}</p>
+                  <div className="spot-card-meta">
+                    <span className="spot-card-rating">★ {spot.rating}</span>
+                    <span className="spot-card-reviews">{spot.reviews}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="home-section">
+          <h2 className="home-section-title">Popular entre los usuarios</h2>
+          <div className="home-carousel">
+            {popularSpots.map((spot) => (
+              <article
+                key={spot.id}
+                className="spot-card"
+                onClick={() => onNavigate("vivacDetail", spot)}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="spot-card-image spot-card-image-alt" />
+                <div className="spot-card-body">
+                  <h3 className="spot-card-title">{spot.title}</h3>
+                  <p className="spot-card-location">{spot.location}</p>
+                  <div className="spot-card-meta">
+                    <span className="spot-card-rating">★ {spot.rating}</span>
+                    <span className="spot-card-reviews">{spot.reviews}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      {isMenuOpen && (
+        <div className="home-menu-overlay" onClick={() => setIsMenuOpen(false)}>
+          <div
+            className="home-menu-panel"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="home-menu-header">
+              <img
+                src="/logo.png"
+                alt="Logo Vivac"
+                className="home-menu-logo"
+              />
+              <button
+                type="button"
+                className="home-menu-close material-symbols-outlined"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Cerrar menú"
+              >
+                close
+              </button>
+            </div>
+            <nav className="home-menu-nav">
+              <button
+                type="button"
+                className="home-menu-item home-menu-item-active"
+                onClick={() => {
+                  if (onNavigate) onNavigate("home");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  home
+                </span>
+                <span>Home</span>
+              </button>
+              <button
+                type="button"
+                className="home-menu-item"
+                onClick={() => {
+                  if (onNavigate) onNavigate("explore");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  explore
+                </span>
+                <span>Explorar</span>
+              </button>
+              <button
+                type="button"
+                className="home-menu-item"
+                onClick={() => {
+                  if (onNavigate) onNavigate("createVivac");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  camping
+                </span>
+                <span>Crear vivac</span>
+              </button>
+              <button type="button" className="home-menu-item">
+                <span className="home-menu-icon material-symbols-outlined">
+                  groups
+                </span>
+                <span>Comunidad</span>
+              </button>
+              <button
+                type="button"
+                className="home-menu-item"
+                onClick={() => {
+                  if (onNavigate) onNavigate("profile");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  account_circle
+                </span>
+                <span>Mi Perfil</span>
+              </button>
+              <button type="button" className="home-menu-item">
+                <span className="home-menu-icon material-symbols-outlined">
+                  person
+                </span>
+                <span>Perfil</span>
+              </button>
+            </nav>
+
+            <div className="home-menu-footer">
+              <button type="button" className="home-menu-secondary">
+                <span className="home-menu-icon material-symbols-outlined">
+                  settings
+                </span>
+                <span>Settings</span>
+              </button>
+              <button
+                type="button"
+                className="home-menu-secondary home-menu-logout"
+                onClick={onLogout}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  logout
+                </span>
+                <span>Log out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ExploreScreen({ onLogout, onNavigate, spots }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mode, setMode] = useState("list"); // 'list' | 'map'
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [selectedLayer, setSelectedLayer] = useState("default");
+  const [mapInstance, setMapInstance] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
+  const [isLocating, setIsLocating] = useState(false);
+  const [altitudeMin, setAltitudeMin] = useState(0);
+  const [altitudeMax, setAltitudeMax] = useState(100);
+  const [distance, setDistance] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [pendingMapCenter, setPendingMapCenter] = useState(null);
+
+  const handleToggleLayer = () => {
+    setSelectedLayer((previous) =>
+      previous === "default" ? "relief" : "default"
+    );
+  };
+
+  const handleLocateMe = () => {
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      console.warn("Geolocalización no soportada en este navegador/contexto");
+      if (typeof window !== "undefined") {
+        window.alert(
+          "La geolocalización no está disponible en este navegador o contexto."
+        );
+      }
+      return;
+    }
+    setIsLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const nextLocation = { lat: latitude, lng: longitude };
+        setUserLocation(nextLocation);
+        if (mapInstance) {
+          mapInstance.setView([latitude, longitude], 14);
+        }
+        console.log("Geolocalización correcta", nextLocation);
+        setIsLocating(false);
+      },
+      (error) => {
+        console.warn("Error al obtener geolocalización", error);
+        if (typeof window !== "undefined") {
+          window.alert(
+            "No se ha podido obtener tu ubicación. Revisa los permisos de localización del navegador."
+          );
+        }
+        setIsLocating(false);
+      },
+      { enableHighAccuracy: true }
+    );
+  };
+
+  useEffect(() => {
+    if (mapInstance && userLocation) {
+      mapInstance.setView([userLocation.lat, userLocation.lng], 14);
+    }
+  }, [mapInstance, userLocation]);
+
+  useEffect(() => {
+    if (mapInstance && pendingMapCenter) {
+      mapInstance.setView([pendingMapCenter.lat, pendingMapCenter.lng], 11);
+      setPendingMapCenter(null);
+    }
+  }, [mapInstance, pendingMapCenter]);
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const rawQuery = searchQuery.trim();
+    if (!rawQuery) {
+      return;
+    }
+    const query = rawQuery.toLowerCase();
+
+    const matchedSpot = spots.find((spot) => {
+      const title = spot.title.toLowerCase();
+      const location = spot.location.toLowerCase();
+      return title.includes(query) || location.includes(query);
+    });
+
+    if (!matchedSpot) {
+      if (typeof window !== "undefined") {
+        window.alert(
+          "No se ha encontrado ningún vivac con ese nombre o localización."
+        );
+      }
+      return;
+    }
+
+    const [lat, lng] = matchedSpot.position;
+    if (mapInstance) {
+      setMode("map");
+      mapInstance.setView([lat, lng], 13);
+    } else {
+      setPendingMapCenter({ lat, lng });
+      setMode("map");
+    }
+  };
+
+  const handleAltitudeMinChange = (event) => {
+    const value = Number(event.target.value);
+    setAltitudeMin((current) => Math.min(value, altitudeMax - 1));
+  };
+
+  const handleAltitudeMaxChange = (event) => {
+    const value = Number(event.target.value);
+    setAltitudeMax((current) => Math.max(value, altitudeMin + 1));
+  };
+
+  const formatAltitudeLabel = (value) => `${Math.round((value / 100) * 3500)}m`;
+  const formatDistanceLabel = (value) => `${Math.round((value / 100) * 50)} km`;
+
+  return (
+    <div className="explore-page">
+      <header className="home-header">
+        <div className="home-logo">
+          <img src="/logo.png" alt="Logo Vivac" />
+        </div>
+        <button
+          type="button"
+          className="home-menu-button"
+          onClick={() => setIsMenuOpen(true)}
+          aria-label="Abrir menú"
+        >
+          <span className="home-menu-button-bar" />
+          <span className="home-menu-button-bar" />
+          <span className="home-menu-button-bar" />
+        </button>
+      </header>
+
+      <main className="explore-main">
+        <form className="home-search" onSubmit={handleSearchSubmit}>
+          <button
+            type="submit"
+            className="home-search-icon material-symbols-outlined"
+            aria-label="Buscar en el mapa"
+          >
+            search
+          </button>
+          <input
+            type="search"
+            placeholder="Buscar una localización..."
+            aria-label="Buscar una localización"
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
+          />
+        </form>
+
+        <div className="explore-toggle-row">
+          {mode === "list" ? (
+            <>
+              <button
+                type="button"
+                className="explore-toggle-button"
+                onClick={() => setMode("map")}
+              >
+                <span className="explore-toggle-button-icon material-symbols-outlined">
+                  map
+                </span>
+                <span>Ver mapa</span>
+              </button>
+              <button
+                type="button"
+                className="explore-toggle-button explore-toggle-button-secondary"
+                onClick={() => setIsFiltersOpen(true)}
+              >
+                <span className="explore-toggle-button-icon material-symbols-outlined">
+                  tune
+                </span>
+                <span>Filtros</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="explore-toggle-button"
+                onClick={() => setMode("list")}
+              >
+                <span className="explore-toggle-button-icon material-symbols-outlined">
+                  list
+                </span>
+                <span>Ver lista</span>
+              </button>
+              <button
+                type="button"
+                className="explore-toggle-button explore-toggle-button-secondary"
+                onClick={() => setIsFiltersOpen(true)}
+              >
+                <span className="explore-toggle-button-icon material-symbols-outlined">
+                  tune
+                </span>
+                <span>Filtros</span>
+              </button>
+            </>
+          )}
+        </div>
+
+        {mode === "list" ? (
+          <section className="explore-list">
+            {spots.map((spot) => (
+              <article
+                key={spot.id}
+                className="explore-card"
+                onClick={() => onNavigate("vivacDetail", spot)}
+                role="button"
+                tabIndex={0}
+              >
+                <div className="explore-card-image">
+                  <button
+                    type="button"
+                    className="explore-card-favorite"
+                    aria-label="Guardar en favoritos"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span className="material-symbols-outlined">favorite</span>
+                  </button>
+                </div>
+                <div className="explore-card-body">
+                  <h2 className="explore-card-title">{spot.title}</h2>
+                  <p className="explore-card-location">{spot.location}</p>
+                  <div className="explore-card-meta">
+                    <span className="explore-card-rating">
+                      <span className="explore-card-rating-icon material-symbols-outlined">
+                        star
+                      </span>
+                      {spot.rating}
+                    </span>
+                    <span className="explore-card-reviews">{spot.reviews}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </section>
+        ) : (
+          <div className="explore-map-wrapper">
+            <MapContainer
+              center={[38.64, -0.33]}
+              zoom={11}
+              scrollWheelZoom={false}
+              className="explore-map"
+              whenCreated={setMapInstance}
+            >
+              {selectedLayer === "default" ? (
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution="&copy; OpenStreetMap contributors"
+                />
+              ) : (
+                <TileLayer
+                  url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+                  attribution="&copy; OpenStreetMap contributors, SRTM | Map style: &copy; OpenTopoMap (CC-BY-SA)"
+                />
+              )}
+              {spots.map((spot) => (
+                <ExploreVivacMarker
+                  key={spot.id}
+                  spot={spot}
+                  onMarkerClick={() => onNavigate("vivacDetail", spot)}
+                />
+              ))}
+              {userLocation && (
+                <CircleMarker
+                  center={[userLocation.lat, userLocation.lng]}
+                  radius={8}
+                  pathOptions={{
+                    color: "#b91c1c",
+                    weight: 3,
+                    fillColor: "#ef4444",
+                    fillOpacity: 0.95,
+                  }}
+                />
+              )}
+            </MapContainer>
+
+            <div className="explore-map-fab-column">
+              <button
+                type="button"
+                className="explore-map-fab"
+                onClick={handleToggleLayer}
+                aria-label="Cambiar capa del mapa"
+              >
+                <span className="material-symbols-outlined">layers</span>
+              </button>
+              <button
+                type="button"
+                className="explore-map-fab"
+                onClick={handleLocateMe}
+                disabled={isLocating}
+                aria-label="Localizar mi posición"
+              >
+                <span className="material-symbols-outlined">
+                  {isLocating ? "hourglass_top" : "my_location"}
+                </span>
+              </button>
+              <button
+                type="button"
+                className="explore-map-fab"
+                aria-label="Crear nuevo punto de vivac"
+                onClick={() => {
+                  if (onNavigate) onNavigate("createVivac");
+                }}
+              >
+                <span className="material-symbols-outlined">add</span>
+              </button>
+            </div>
+          </div>
+        )}
+      </main>
+
+      {isMenuOpen && (
+        <div className="home-menu-overlay" onClick={() => setIsMenuOpen(false)}>
+          <div
+            className="home-menu-panel"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="home-menu-header">
+              <img
+                src="/logo.png"
+                alt="Logo Vivac"
+                className="home-menu-logo"
+              />
+              <button
+                type="button"
+                className="home-menu-close material-symbols-outlined"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Cerrar menú"
+              >
+                close
+              </button>
+            </div>
+            <nav className="home-menu-nav">
+              <button
+                type="button"
+                className="home-menu-item"
+                onClick={() => {
+                  if (onNavigate) onNavigate("home");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  home
+                </span>
+                <span>Home</span>
+              </button>
+              <button
+                type="button"
+                className="home-menu-item home-menu-item-active"
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  explore
+                </span>
+                <span>Explorar</span>
+              </button>
+              <button
+                type="button"
+                className="home-menu-item"
+                onClick={() => {
+                  if (onNavigate) onNavigate("createVivac");
+                  setIsMenuOpen(false);
+                }}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  camping
+                </span>
+                <span>Crear vivac</span>
+              </button>
+              <button type="button" className="home-menu-item">
+                <span className="home-menu-icon material-symbols-outlined">
+                  groups
+                </span>
+                <span>Comunidad</span>
+              </button>
+              <button type="button" className="home-menu-item">
+                <span className="home-menu-icon material-symbols-outlined">
+                  person
+                </span>
+                <span>Perfil</span>
+              </button>
+            </nav>
+
+            <div className="home-menu-footer">
+              <button type="button" className="home-menu-secondary">
+                <span className="home-menu-icon material-symbols-outlined">
+                  settings
+                </span>
+                <span>Settings</span>
+              </button>
+              <button
+                type="button"
+                className="home-menu-secondary home-menu-logout"
+                onClick={onLogout}
+              >
+                <span className="home-menu-icon material-symbols-outlined">
+                  logout
+                </span>
+                <span>Log out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isFiltersOpen && (
+        <div
+          className="filters-overlay"
+          onClick={() => setIsFiltersOpen(false)}
+        >
+          <div
+            className="filters-panel"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="filters-header">
+              <h2 className="filters-title">Filtros</h2>
+              <button
+                type="button"
+                className="filters-close material-symbols-outlined"
+                onClick={() => setIsFiltersOpen(false)}
+                aria-label="Cerrar filtros"
+              >
+                close
+              </button>
+            </div>
+
+            <section className="filters-section">
+              <h3 className="filters-section-label">Altitud</h3>
+              <div className="filters-range-header">
+                <span>{formatAltitudeLabel(altitudeMin)}</span>
+                <span>{formatAltitudeLabel(altitudeMax)}</span>
+              </div>
+              <div className="filters-range">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={altitudeMin}
+                  onChange={handleAltitudeMinChange}
+                />
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={altitudeMax}
+                  onChange={handleAltitudeMaxChange}
+                />
+              </div>
+              <div className="filters-range-footer">
+                <span>0m</span>
+                <span>3.500m</span>
+              </div>
+            </section>
+
+            <section className="filters-section">
+              <h3 className="filters-section-label">Distancia</h3>
+              <div className="filters-range-header">
+                <span>{formatDistanceLabel(distance)}</span>
+              </div>
+              <div className="filters-range">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={distance}
+                  onChange={(event) => setDistance(Number(event.target.value))}
+                />
+              </div>
+            </section>
+
+            <section className="filters-section">
+              <h3 className="filters-section-label">Aislamiento</h3>
+              <div className="filters-checklist">
+                {[
+                  "Población cerca",
+                  "Ligeramente aislado",
+                  "Muy aislado",
+                  "Remoto",
+                ].map((label) => (
+                  <label key={label} className="filters-checkbox">
+                    <input type="checkbox" />
+                    <span>{label}</span>
+                  </label>
+                ))}
+              </div>
+            </section>
+
+            <section className="filters-section">
+              <h3 className="filters-section-label">Dificultad</h3>
+              <div className="filters-checklist">
+                {["Sencilla", "Moderada", "Difícil"].map((label) => (
+                  <label key={label} className="filters-checkbox">
+                    <input type="checkbox" />
+                    <span>{label}</span>
+                  </label>
+                ))}
+              </div>
+            </section>
+
+            <div className="filters-actions">
+              <button
+                type="button"
+                className="filters-apply-button"
+                onClick={() => setIsFiltersOpen(false)}
+              >
+                Aplicar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CreateVivacScreen({ onClose, onCreateVivac, existingSpots }) {
+  const [step, setStep] = useState(1);
+
+  const [locationQuery, setLocationQuery] = useState("");
+  const [vivacPosition, setVivacPosition] = useState([38.64, -0.33]);
+  const [locationMapInstance, setLocationMapInstance] = useState(null);
+  const [isLocating, setIsLocating] = useState(false);
+
+  const [startPoint, setStartPoint] = useState("");
+  const [accessDifficulty, setAccessDifficulty] = useState("");
+  const [terrainTypes, setTerrainTypes] = useState([]);
+  const [climateExposure, setClimateExposure] = useState("");
+  const [adventureTags, setAdventureTags] = useState([]);
+  const [equipmentItems, setEquipmentItems] = useState([]);
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [photos, setPhotos] = useState([]);
+  const [isPrivate, setIsPrivate] = useState(false);
+
+  const [isExitDialogOpen, setIsExitDialogOpen] = useState(false);
+  const [openField, setOpenField] = useState(null);
+
+  useEffect(() => {
+    if (locationMapInstance && vivacPosition) {
+      locationMapInstance.setView(vivacPosition, 13);
+    }
+  }, [locationMapInstance, vivacPosition]);
+
+  const handleLocateHere = () => {
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      if (typeof window !== "undefined") {
+        window.alert(
+          "La geolocalización no está disponible en este navegador o contexto."
+        );
+      }
+      return;
+    }
+    setIsLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const nextPosition = [latitude, longitude];
+        setVivacPosition(nextPosition);
+        setIsLocating(false);
+      },
+      (error) => {
+        console.warn("Error al obtener geolocalización", error);
+        if (typeof window !== "undefined") {
+          window.alert(
+            "No se ha podido obtener tu ubicación. Revisa los permisos de localización del navegador."
+          );
+        }
+        setIsLocating(false);
+      },
+      { enableHighAccuracy: true }
+    );
+  };
+
+  const handleLocationSearchSubmit = (event) => {
+    event.preventDefault();
+    const rawQuery = locationQuery.trim();
+    if (!rawQuery) {
+      return;
+    }
+    const query = rawQuery.toLowerCase();
+
+    const baseSpots = Array.isArray(existingSpots) ? existingSpots : [];
+    const matchedSpot = baseSpots.find((spot) => {
+      const title = (spot.title || "").toLowerCase();
+      const location = (spot.location || "").toLowerCase();
+      return title.includes(query) || location.includes(query);
+    });
+
+    if (!matchedSpot) {
+      if (typeof window !== "undefined") {
+        window.alert(
+          "No se ha encontrado ningún vivac con ese nombre o localización."
+        );
+      }
+      return;
+    }
+
+    const position = matchedSpot.position;
+    if (!Array.isArray(position) || position.length !== 2) {
+      return;
+    }
+    const [lat, lng] = position;
+    const nextPosition = [lat, lng];
+    setVivacPosition(nextPosition);
+    if (locationMapInstance) {
+      locationMapInstance.setView(nextPosition, 13);
+    }
+  };
+
+  const toggleTerrainType = (value) => {
+    setTerrainTypes((current) =>
+      current.includes(value)
+        ? current.filter((item) => item !== value)
+        : [...current, value]
+    );
+  };
+
+  const toggleAdventureTag = (value) => {
+    setAdventureTags((current) =>
+      current.includes(value)
+        ? current.filter((item) => item !== value)
+        : [...current, value]
+    );
+  };
+
+  const toggleEquipmentItem = (value) => {
+    setEquipmentItems((current) =>
+      current.includes(value)
+        ? current.filter((item) => item !== value)
+        : [...current, value]
+    );
+  };
+
+  const toggleFieldOpen = (field) => {
+    setOpenField((current) => (current === field ? null : field));
+  };
+
+  const handleNext = () => {
+    if (step < 3) {
+      setStep((current) => current + 1);
+      return;
+    }
+
+    const trimmedTitle = title.trim();
+    const baseLocation = locationQuery.trim() || startPoint.trim();
+    const trimmedLocation = baseLocation;
+    const vivacData = {
+      title: trimmedTitle || "Punto vivac sin título",
+      location: trimmedLocation || "Ubicación sin nombre",
+      position: vivacPosition,
+      accessDifficulty,
+      terrainType: terrainTypes,
+      climateExposure,
+      adventureNotes: adventureTags,
+      equipment: equipmentItems,
+      isPrivate,
+    };
+
+    if (onCreateVivac) {
+      onCreateVivac(vivacData);
+    }
+
+    if (typeof window !== "undefined") {
+      window.alert("Punto vivac creado.");
+    }
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const handleOpenExit = () => {
+    setIsExitDialogOpen(true);
+  };
+
+  const handleExitAction = (action) => {
+    if (action === "continue") {
+      setIsExitDialogOpen(false);
+      return;
+    }
+    if (action === "save") {
+      setIsExitDialogOpen(false);
+      if (onClose) {
+        onClose();
+      }
+      return;
+    }
+    if (action === "discard") {
+      setIsExitDialogOpen(false);
+      if (onClose) {
+        onClose();
+      }
+    }
+  };
+
+  const handlePhotosChange = (event) => {
+    const files = Array.from(event.target.files || []);
+    if (files.length) {
+      setPhotos(files);
+    }
+  };
+
+  const renderStep1 = () => (
+    <section className="create-vivac-step">
+      <p className="create-vivac-step-label">Step 1</p>
+      <h2 className="create-vivac-step-title">Añadir ubicación</h2>
+
+      <form
+        className="create-vivac-search"
+        onSubmit={handleLocationSearchSubmit}
+      >
+        <span className="material-symbols-outlined">search</span>
+        <input
+          type="search"
+          placeholder="Plá de la casa"
+          value={locationQuery}
+          onChange={(event) => setLocationQuery(event.target.value)}
+        />
+      </form>
+
+      <div className="create-vivac-map-wrapper">
+        <MapContainer
+          center={vivacPosition}
+          zoom={13}
+          scrollWheelZoom={false}
+          className="create-vivac-map"
+          whenCreated={setLocationMapInstance}
+        >
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution="&copy; OpenStreetMap contributors"
+          />
+          <CreateVivacLocationMarker
+            position={vivacPosition}
+            onPositionChange={setVivacPosition}
+          />
+        </MapContainer>
+
+        <button
+          type="button"
+          className="create-vivac-locate-fab"
+          onClick={handleLocateHere}
+          disabled={isLocating}
+          aria-label="Localizar mi posición"
+        >
+          <span className="material-symbols-outlined">
+            {isLocating ? "hourglass_top" : "my_location"}
+          </span>
+        </button>
+      </div>
+
+      <button
+        type="button"
+        className="create-vivac-primary-cta"
+        onClick={handleNext}
+      >
+        Continuar
+      </button>
+    </section>
+  );
+
+  const renderStep2 = () => (
+    <section className="create-vivac-step">
+      <p className="create-vivac-step-label">Step 2</p>
+      <h2 className="create-vivac-step-title">Detalles del vivac</h2>
+
+      <label className="create-vivac-label" htmlFor="vivac-start-point">
+        ¿Desde dónde has partido?
+      </label>
+      <div className="create-vivac-field">
+        <input
+          id="vivac-start-point"
+          type="text"
+          placeholder="Indica el punto de partida"
+          value={startPoint}
+          onChange={(event) => setStartPoint(event.target.value)}
+        />
+      </div>
+
+      <label className="create-vivac-label">
+        Dificultad de acceso al punto vivac
+      </label>
+      <button
+        type="button"
+        className="create-vivac-field create-vivac-field-with-chevron"
+        onClick={() => toggleFieldOpen("difficulty")}
+      >
+        <span>{accessDifficulty || "Dificultad de acceso al punto vivac"}</span>
+        <span className="material-symbols-outlined">
+          {openField === "difficulty" ? "expand_less" : "expand_more"}
+        </span>
+      </button>
+      {openField === "difficulty" && (
+        <div className="create-vivac-dropdown-panel">
+          {["Fácil", "Moderado", "Difícil"].map((option) => (
+            <button
+              key={option}
+              type="button"
+              className="create-vivac-dropdown-option"
+              onClick={() => {
+                setAccessDifficulty(option);
+                setOpenField(null);
+              }}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <label className="create-vivac-label">Indica el tipo de terreno</label>
+      <button
+        type="button"
+        className="create-vivac-field create-vivac-field-with-chevron"
+        onClick={() => toggleFieldOpen("terrain")}
+      >
+        <span>
+          {terrainTypes.length
+            ? terrainTypes.join(", ")
+            : "Indica el tipo de terreno"}
+        </span>
+        <span className="material-symbols-outlined">
+          {openField === "terrain" ? "expand_less" : "expand_more"}
+        </span>
+      </button>
+      {openField === "terrain" && (
+        <div className="create-vivac-dropdown-panel">
+          <div className="create-vivac-chip-row">
+            {[
+              "Roca y pradera alta",
+              "Arena compacta",
+              "Pedrera fina",
+              "Rocoso",
+              "Ladera suave",
+              "Bosque",
+              "Pinada",
+              "Monte bajo",
+            ].map((option) => (
+              <button
+                key={option}
+                type="button"
+                className={`create-vivac-chip${
+                  terrainTypes.includes(option) ? " is-selected" : ""
+                }`}
+                onClick={() => toggleTerrainType(option)}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <label className="create-vivac-label">Zona expuesta al clima</label>
+      <button
+        type="button"
+        className="create-vivac-field create-vivac-field-with-chevron"
+        onClick={() => toggleFieldOpen("climate")}
+      >
+        <span>{climateExposure || "Zona expuesta al clima"}</span>
+        <span className="material-symbols-outlined">
+          {openField === "climate" ? "expand_less" : "expand_more"}
+        </span>
+      </button>
+      {openField === "climate" && (
+        <div className="create-vivac-dropdown-panel">
+          {["Sí", "No"].map((option) => (
+            <button
+              key={option}
+              type="button"
+              className="create-vivac-dropdown-option"
+              onClick={() => {
+                setClimateExposure(option);
+                setOpenField(null);
+              }}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <label className="create-vivac-label">
+        ¿Algo que quieras señalar de tu aventura?
+      </label>
+      <button
+        type="button"
+        className="create-vivac-field create-vivac-field-with-chevron"
+        onClick={() => toggleFieldOpen("adventure")}
+      >
+        <span>
+          {adventureTags.length
+            ? "Opciones seleccionadas"
+            : "¿Algo que quieras señalar de tu aventura?"}
+        </span>
+        <span className="material-symbols-outlined">
+          {openField === "adventure" ? "expand_less" : "expand_more"}
+        </span>
+      </button>
+      {openField === "adventure" && (
+        <div className="create-vivac-dropdown-panel">
+          <div className="create-vivac-chip-row">
+            {[
+              { key: "agua_cerca", label: "Agua cerca" },
+              { key: "fauna_frecuente", label: "Fauna frecuente" },
+              { key: "refugio", label: "Refugio" },
+              { key: "cueva", label: "Cueva" },
+              { key: "fui_con_mascota", label: "Fui con mascota" },
+            ].map((tag) => (
+              <button
+                key={tag.key}
+                type="button"
+                className={`create-vivac-chip${
+                  adventureTags.includes(tag.key) ? " is-selected" : ""
+                }`}
+                onClick={() => toggleAdventureTag(tag.key)}
+              >
+                {tag.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <label className="create-vivac-label">Tu equipamiento</label>
+      <button
+        type="button"
+        className="create-vivac-field create-vivac-field-with-chevron"
+        onClick={() => toggleFieldOpen("equipment")}
+      >
+        <span>
+          {equipmentItems.length
+            ? "Equipamiento seleccionado"
+            : "Tu equipamiento"}
+        </span>
+        <span className="material-symbols-outlined">
+          {openField === "equipment" ? "expand_less" : "expand_more"}
+        </span>
+      </button>
+      {openField === "equipment" && (
+        <div className="create-vivac-dropdown-panel">
+          <div className="create-vivac-chip-row">
+            {[
+              "Tienda de campaña",
+              "Saco de dormir",
+              "Esterilla",
+              "Hornillo",
+              "Linterna frontal",
+              "Botiquín",
+            ].map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={`create-vivac-chip${
+                  equipmentItems.includes(item) ? " is-selected" : ""
+                }`}
+                onClick={() => toggleEquipmentItem(item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <button
+        type="button"
+        className="create-vivac-primary-cta"
+        onClick={handleNext}
+      >
+        Continuar
+      </button>
+    </section>
+  );
+
+  const renderStep3 = () => (
+    <section className="create-vivac-step">
+      <p className="create-vivac-step-label">Step 3</p>
+      <h2 className="create-vivac-step-title">Descripción</h2>
+
+      <label className="create-vivac-label" htmlFor="vivac-title">
+        Título
+      </label>
+      <div className="create-vivac-field">
+        <input
+          id="vivac-title"
+          type="text"
+          placeholder="Añade un título para tu punto vivac"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+        />
+      </div>
+
+      <label className="create-vivac-label" htmlFor="vivac-description">
+        Descripción
+      </label>
+      <div className="create-vivac-field">
+        <textarea
+          id="vivac-description"
+          className="create-vivac-textarea"
+          placeholder="Añade una descripción"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+      </div>
+
+      <label className="create-vivac-label">Añadir fotos</label>
+      <label className="create-vivac-photos-dropzone">
+        <span className="material-symbols-outlined">add_photo_alternate</span>
+        <span>
+          {photos.length > 0
+            ? `${photos.length} foto(s) seleccionada(s)`
+            : "Añade fotos de tu vivac"}
+        </span>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handlePhotosChange}
+        />
+      </label>
+
+      <div className="create-vivac-private-row">
+        <div>
+          <div className="create-vivac-private-label">Privado</div>
+          <div className="create-vivac-private-helper">
+            Sólo tú puedes verlo
+          </div>
+        </div>
+        <button
+          type="button"
+          className={
+            isPrivate ? "create-vivac-switch is-on" : "create-vivac-switch"
+          }
+          onClick={() => setIsPrivate((current) => !current)}
+          aria-pressed={isPrivate}
+        >
+          <span className="create-vivac-switch-thumb" />
+        </button>
+      </div>
+
+      <button
+        type="button"
+        className="create-vivac-primary-cta"
+        onClick={handleNext}
+      >
+        Terminar
+      </button>
+    </section>
+  );
+
+  const progressClassName = [
+    "create-vivac-progress-bar",
+    step === 2 ? "step-2" : "",
+    step === 3 ? "step-3" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <div className="create-vivac-page">
+      <header className="create-vivac-header">
+        <h1 className="create-vivac-header-title">Crear punto vivac</h1>
+        <button
+          type="button"
+          className="create-vivac-header-close material-symbols-outlined"
+          onClick={handleOpenExit}
+          aria-label="Cerrar creación de vivac"
+        >
+          close
+        </button>
+      </header>
+
+      <div className="create-vivac-progress">
+        <div className={progressClassName} />
+      </div>
+
+      <main className="create-vivac-main">
+        {step === 1 && renderStep1()}
+        {step === 2 && renderStep2()}
+        {step === 3 && renderStep3()}
+      </main>
+
+      {isExitDialogOpen && (
+        <div
+          className="create-vivac-exit-overlay"
+          onClick={() => handleExitAction("discard")}
+        >
+          <div
+            className="create-vivac-exit-card"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <h2>¿Salir?</h2>
+            <div className="create-vivac-exit-actions">
+              <button
+                type="button"
+                onClick={() => handleExitAction("continue")}
+              >
+                Continuar
+              </button>
+              <button type="button" onClick={() => handleExitAction("save")}>
+                Guardar para más tarde
+              </button>
+              <button type="button" onClick={() => handleExitAction("discard")}>
+                Salir sin guardar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProfileScreen({ onLogout, onNavigate, spots = [] }) {
+  const [activeTab, setActiveTab] = useState("created");
+
+  const userVivacs = spots;
+  const savedVivacs = [];
+
+  return (
+    <div className="profile-page">
+      <header className="profile-header">
+        <button
+          type="button"
+          className="profile-back material-symbols-outlined"
+          onClick={() => onNavigate("home")}
+          aria-label="Volver"
+        >
+          arrow_back
+        </button>
+        <h1 className="profile-title">Mi Perfil</h1>
+        <button
+          type="button"
+          className="profile-logout material-symbols-outlined"
+          onClick={onLogout}
+          aria-label="Cerrar sesión"
+        >
+          logout
+        </button>
+      </header>
+
+      <div className="profile-user-info">
+        <div className="profile-avatar">👤</div>
+        <h2 className="profile-name">Mi Usuario</h2>
+        <p className="profile-email">usuario@example.com</p>
+      </div>
+
+      <div className="profile-tabs">
+        <button
+          type="button"
+          className={`profile-tab ${activeTab === "created" ? "active" : ""}`}
+          onClick={() => setActiveTab("created")}
+        >
+          Tus Vivacs
+        </button>
+        <button
+          type="button"
+          className={`profile-tab ${activeTab === "saved" ? "active" : ""}`}
+          onClick={() => setActiveTab("saved")}
+        >
+          Guardados
+        </button>
+      </div>
+
+      <main className="profile-main">
+        {activeTab === "created" && (
+          <section className="profile-list">
+            {userVivacs.length > 0 ? (
+              userVivacs.map((vivac) => (
+                <article
+                  key={vivac.id}
+                  className="profile-card"
+                  onClick={() => onNavigate("vivacDetail", vivac)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <div className="profile-card-image" />
+                  <div className="profile-card-body">
+                    <h3 className="profile-card-title">{vivac.title}</h3>
+                    <p className="profile-card-location">{vivac.location}</p>
+                    <div className="profile-card-meta">
+                      <span className="profile-card-rating">
+                        ★ {vivac.rating || "4.5"}
+                      </span>
+                      <span className="profile-card-reviews">
+                        {vivac.reviews || "0 reviews"}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <p className="profile-empty">
+                No has creado ningún vivac aún. ¡Crea uno ahora!
+              </p>
+            )}
+          </section>
+        )}
+
+        {activeTab === "saved" && (
+          <section className="profile-list">
+            {savedVivacs.length > 0 ? (
+              savedVivacs.map((vivac) => (
+                <article
+                  key={vivac.id}
+                  className="profile-card"
+                  onClick={() => onNavigate("vivacDetail", vivac)}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <div className="profile-card-image" />
+                  <div className="profile-card-body">
+                    <h3 className="profile-card-title">{vivac.title}</h3>
+                    <p className="profile-card-location">{vivac.location}</p>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <p className="profile-empty">No tienes vivacs guardados aún.</p>
+            )}
+          </section>
+        )}
+      </main>
+    </div>
+  );
+}
+
+function VivacDetailScreen({ vivac, onClose, onNavigate }) {
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const [weatherData, setWeatherData] = useState(null);
+  const [weatherLoading, setWeatherLoading] = useState(false);
+
+  useEffect(() => {
+    if (!vivac || !vivac.position) return;
+
+    const fetchWeather = async () => {
+      setWeatherLoading(true);
+      try {
+        const [lat, lng] = vivac.position;
+        const response = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`
+        );
+        const data = await response.json();
+        if (data && data.hourly) {
+          setWeatherData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching weather:", error);
+      } finally {
+        setWeatherLoading(false);
+      }
+    };
+
+    fetchWeather();
+  }, [vivac]);
+
+  if (!vivac) return null;
+
+  return (
+    <div className="vivac-detail-page">
+      <header className="vivac-detail-header">
+        <button
+          type="button"
+          className="vivac-detail-back material-symbols-outlined"
+          onClick={onClose}
+          aria-label="Volver"
+        >
+          arrow_back
+        </button>
+        <h1 className="vivac-detail-title">{vivac.title}</h1>
+        <div className="vivac-detail-actions">
+          <button
+            type="button"
+            className="vivac-detail-action material-symbols-outlined"
+            onClick={() => setIsShareOpen(!isShareOpen)}
+            aria-label="Compartir"
+          >
+            share
+          </button>
+          <button
+            type="button"
+            className="vivac-detail-action material-symbols-outlined"
+            onClick={() => setIsMoreOpen(!isMoreOpen)}
+            aria-label="Más opciones"
+          >
+            more_vert
+          </button>
+        </div>
+      </header>
+
+      <main className="vivac-detail-main">
+        {/* Fotos carousel */}
+        <div className="vivac-detail-photos">
+          <div className="vivac-detail-photo-placeholder">
+            <span className="material-symbols-outlined">image</span>
+          </div>
+          <div className="vivac-detail-photo-dots">
+            <span className="dot active" />
+            <span className="dot" />
+            <span className="dot" />
+            <span className="dot" />
+          </div>
+          <button className="vivac-detail-view-all">Ver todo (?)</button>
+        </div>
+
+        {/* Título y rating */}
+        <div className="vivac-detail-header-info">
+          <h2>{vivac.title}</h2>
+          <div className="vivac-detail-rating">
+            <span className="stars">★★★★☆</span>
+            <span className="rating-value">{vivac.rating}</span>
+          </div>
+        </div>
+
+        {/* Ubicación */}
+        <section className="vivac-detail-section">
+          <h3>Localización</h3>
+          <div className="vivac-detail-location-item">
+            <span className="material-symbols-outlined">location_on</span>
+            <div>
+              <p className="label">Punto vivac:</p>
+              <p className="value">
+                {vivac.position
+                  ? `${vivac.position[0].toFixed(
+                      4
+                    )}, ${vivac.position[1].toFixed(4)} (lat, lng)`
+                  : "N/A"}
+              </p>
+              <p className="sublabel">{vivac.location}</p>
+            </div>
+          </div>
+          <div className="vivac-detail-location-item">
+            <span className="material-symbols-outlined">hiking</span>
+            <div>
+              <p className="label">Zona principal:</p>
+              <p className="value">{vivac.terrainType || "No especificado"}</p>
+            </div>
+          </div>
+          <div className="vivac-detail-location-item">
+            <span className="material-symbols-outlined">place</span>
+            <div>
+              <p className="label">Lugar cercano:</p>
+              <p className="value">{vivac.startPoint || "No especificado"}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Detalles */}
+        <section className="vivac-detail-section">
+          <h3>Detalles</h3>
+          {vivac.startPoint && (
+            <div className="vivac-detail-item">
+              <span className="material-symbols-outlined">directions_walk</span>
+              <div>
+                <p className="label">Punto de partida:</p>
+                <p className="value">{vivac.startPoint}</p>
+              </div>
+            </div>
+          )}
+          {vivac.accessDifficulty && (
+            <div className="vivac-detail-item">
+              <span className="material-symbols-outlined">trending_up</span>
+              <div>
+                <p className="label">Dificultad de acceso:</p>
+                <p className="value">{vivac.accessDifficulty}</p>
+              </div>
+            </div>
+          )}
+          {vivac.terrainType && (
+            <div className="vivac-detail-item">
+              <span className="material-symbols-outlined">terrain</span>
+              <div>
+                <p className="label">Terreno:</p>
+                <p className="value">
+                  {Array.isArray(vivac.terrainType)
+                    ? vivac.terrainType.join(", ")
+                    : vivac.terrainType}
+                </p>
+              </div>
+            </div>
+          )}
+          {vivac.climateExposure && (
+            <div className="vivac-detail-item">
+              <span className="material-symbols-outlined">cloud</span>
+              <div>
+                <p className="label">Zona expuesta al clima:</p>
+                <p className="value">{vivac.climateExposure}</p>
+              </div>
+            </div>
+          )}
+          {vivac.adventureNotes && vivac.adventureNotes.length > 0 && (
+            <div className="vivac-detail-item">
+              <span className="material-symbols-outlined">star</span>
+              <div>
+                <p className="label">Aventura:</p>
+                <p className="value">{vivac.adventureNotes.join(", ")}</p>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* Descripción */}
+        {vivac.description && (
+          <section className="vivac-detail-section">
+            <h3>Descripción</h3>
+            <p className="vivac-detail-description">{vivac.description}</p>
+            <button className="vivac-detail-read-more">Ver más ▼</button>
+          </section>
+        )}
+
+        {/* Clima */}
+        {weatherData && (
+          <section className="vivac-detail-section">
+            <h3>Hoy</h3>
+            <div className="vivac-detail-weather">
+              {weatherData.hourly && weatherData.hourly.time && (
+                <div className="weather-hours">
+                  {[0, 3, 6, 9, 12].map((hour) => {
+                    const temp = weatherData.hourly.temperature_2m[hour];
+                    const time = new Date(
+                      weatherData.hourly.time[hour]
+                    ).toLocaleTimeString("es-ES", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    });
+                    return (
+                      <div key={hour} className="weather-hour">
+                        <p className="temp">{Math.round(temp)}°C</p>
+                        <span className="material-symbols-outlined">
+                          {temp > 20 ? "sunny" : "cloud"}
+                        </span>
+                        <p className="time">{time}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Valoraciones */}
+        <section className="vivac-detail-section">
+          <h3>Valoraciones</h3>
+          <button className="vivac-detail-add-rating">
+            Añade una valoración para ayudar a otros usuarios
+          </button>
+          <div className="vivac-detail-rating-stars">
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+          </div>
+        </section>
+
+        {/* Comentarios */}
+        <section className="vivac-detail-section">
+          <h3>Comentarios</h3>
+          <div className="vivac-detail-comment-input">
+            <input type="text" placeholder="Deja tu comentario..." />
+          </div>
+          <div className="vivac-detail-comments">
+            <div className="comment">
+              <div className="comment-header">
+                <span className="comment-author">Usuario</span>
+                <span className="comment-date">Hace 2 días</span>
+              </div>
+              <p className="comment-text">Excelente lugar para acampar.</p>
+            </div>
+          </div>
+          <button className="vivac-detail-load-more">Cargar más</button>
+        </section>
+      </main>
+
+      {/* Modal Compartir */}
+      {isShareOpen && (
+        <div
+          className="vivac-detail-modal-overlay"
+          onClick={() => setIsShareOpen(false)}
+        >
+          <div
+            className="vivac-detail-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="vivac-detail-modal-search">
+              <span className="material-symbols-outlined">search</span>
+              <input type="text" placeholder="Buscar" />
+            </div>
+            <div className="vivac-detail-share-friends">
+              <button className="share-friend">
+                <div className="friend-avatar">🌲</div>
+                <p>Lidia explorer</p>
+              </button>
+              <button className="share-friend">
+                <div className="friend-avatar">🏕️</div>
+                <p>GermanP_</p>
+              </button>
+              <button className="share-friend">
+                <div className="friend-avatar">⛰️</div>
+                <p>Pianes vivaquers</p>
+              </button>
+            </div>
+            <div className="vivac-detail-share-social">
+              <button className="share-social whatsapp">
+                <span className="material-symbols-outlined">chat</span>
+                <p>WhatsApp</p>
+              </button>
+              <button className="share-social telegram">
+                <span className="material-symbols-outlined">send</span>
+                <p>Telegram</p>
+              </button>
+              <button className="share-social instagram">
+                <span className="material-symbols-outlined">image</span>
+                <p>Instagram stories</p>
+              </button>
+              <button className="share-social copy">
+                <span className="material-symbols-outlined">content_copy</span>
+                <p>Copiar link</p>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Más opciones */}
+      {isMoreOpen && (
+        <div
+          className="vivac-detail-modal-overlay"
+          onClick={() => setIsMoreOpen(false)}
+        >
+          <div
+            className="vivac-detail-more-menu"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button className="more-option">Reportar contenido</button>
+            <button className="more-option">Reportar usuario</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const [currentScreen, setCurrentScreen] = useState(() => {
+    const stored = localStorage.getItem("vivac_auth");
+    return stored ? "home" : "auth";
+  });
+  const [lastMainScreen, setLastMainScreen] = useState("home");
+  const [selectedVivac, setSelectedVivac] = useState(null);
+  const [view, setView] = useState("login"); // 'login' | 'register' | 'forgot'
+  const [authError, setAuthError] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
+
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
+
+  const [registerUserName, setRegisterUserName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerPasswordConfirm, setRegisterPasswordConfirm] = useState("");
+  const [registerLoading, setRegisterLoading] = useState(false);
+
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotLoading, setForgotLoading] = useState(false);
+
+  const [spots, setSpots] = useState([]);
+
+  // Cargar vivacs desde el backend
+  useEffect(() => {
+    const loadVivacs = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/vivacs`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          const transformedSpots = data.map((vivac) => ({
+            id: vivac.id,
+            title: vivac.name,
+            name: vivac.name,
+            description: vivac.description,
+            location: `${vivac.latitude}, ${vivac.longitude}`,
+            latitude: parseFloat(vivac.latitude),
+            longitude: parseFloat(vivac.longitude),
+            rating: vivac.avgRating || "0",
+            reviews: `${vivac.reviewCount} reviews`,
+            position: [parseFloat(vivac.latitude), parseFloat(vivac.longitude)],
+            photoUrls: vivac.photoUrls || [],
+            accessDifficulty: vivac.accessDifficulty,
+            terrainType: vivac.terrainType,
+            environment: vivac.environment,
+            privacity: vivac.privacity,
+            petFriendly: vivac.petFriendly,
+            createdBy: vivac.createdBy,
+            elevation: vivac.elevation,
+          }));
+          setSpots(transformedSpots);
+        }
+      } catch (error) {
+        console.error("Error loading vivacs:", error);
+      }
+    };
+    loadVivacs();
+  }, []);
+
+  useEffect(() => {
+    setAuthError("");
+    setStatusMessage("");
+  }, [view]);
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+    setAuthError("");
+    setStatusMessage("");
+
+    if (!loginEmail || !loginPassword) {
+      setAuthError("Por favor completa todos los campos.");
+      return;
+    }
+
+    setLoginLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch (e) {
+        console.error("Error parsing response:", e);
+      }
+
+      if (response.ok && data) {
+        localStorage.setItem("vivac_auth", JSON.stringify(data));
+        setStatusMessage("Has iniciado sesión correctamente.");
+        setLastMainScreen("home");
+        setCurrentScreen("home");
+        setLoginEmail("");
+        setLoginPassword("");
+      } else {
+        const message = data?.message || data?.error || "No se ha podido iniciar sesión.";
+        setAuthError(message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setAuthError("Error de conexión. Verifica tu conexión a internet.");
+    } finally {
+      setLoginLoading(false);
+    }
+  };
+
+  const handleRegisterSubmit = async (event) => {
+    event.preventDefault();
+    setAuthError("");
+    setStatusMessage("");
+
+    if (!registerUserName || !registerEmail || !registerPassword) {
+      setAuthError("Por favor completa todos los campos.");
+      return;
+    }
+
+    // Validar que las contraseñas coincidan
+    if (registerPassword !== registerPasswordConfirm) {
+      setAuthError("Las contraseñas no coinciden.");
+      return;
+    }
+
+    setRegisterLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          userName: registerUserName,
+          email: registerEmail,
+          password: registerPassword,
+        }),
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch (e) {
+        console.error("Error parsing response:", e);
+      }
+
+      if (response.ok && data) {
+        localStorage.setItem("vivac_auth", JSON.stringify(data));
+        setStatusMessage("Cuenta creada correctamente.");
+        setLastMainScreen("home");
+        setCurrentScreen("home");
+        setRegisterUserName("");
+        setRegisterEmail("");
+        setRegisterPassword("");
+        setRegisterPasswordConfirm("");
+      } else {
+        const message = data?.message || data?.error || "No se ha podido crear la cuenta.";
+        setAuthError(message);
+      }
+    } catch (error) {
+      console.error("Register error:", error);
+      setAuthError("Error de conexión. Verifica tu conexión a internet.");
+    } finally {
+      setRegisterLoading(false);
+    }
+  };
+
+  const handleForgotSubmit = async (event) => {
+    event.preventDefault();
+    setAuthError("");
+    setStatusMessage("");
+    setForgotLoading(true);
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/auth/request-password-reset`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: forgotEmail }),
+        }
+      );
+      const data = await response.json().catch(() => null);
+      if (!response.ok) {
+        const message =
+          (data && (data.message || data.error)) ||
+          "No se ha podido enviar el correo.";
+        setAuthError(message);
+      } else {
+        setStatusMessage(
+          "Se ha enviado un correo con instrucciones para recuperar tu contraseña."
+        );
+        setForgotEmail("");
+      }
+    } catch (error) {
+      setAuthError("Error de red o servidor. Inténtalo de nuevo.");
+    } finally {
+      setForgotLoading(false);
+    }
+  };
+
+  const handleGoogleCredentialResponse = async (response) => {
+    try {
+      const result = await fetch(`${API_BASE_URL}/auth/google`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: response.credential }),
+      });
+      const data = await result.json().catch(() => null);
+      if (!result.ok) {
+        const message =
+          (data && (data.message || data.error)) ||
+          "No se ha podido iniciar sesión con Google.";
+        setAuthError(message);
+      } else {
+        localStorage.setItem("vivac_auth", JSON.stringify(data));
+        setStatusMessage("Has iniciado sesión con Google correctamente.");
+        setLastMainScreen("home");
+        setCurrentScreen("home");
+      }
+    } catch (error) {
+      setAuthError("Error de red o servidor con Google.");
+    }
+  };
+
+  useEffect(() => {
+    const initGoogle = () => {
+      if (
+        !window.google ||
+        !window.google.accounts ||
+        !window.google.accounts.id
+      ) {
+        return;
+      }
+      try {
+        window.google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleCredentialResponse,
+        });
+        const button = document.getElementById("googleSignInDiv");
+        if (button && button.childElementCount === 0) {
+          window.google.accounts.id.renderButton(button, {
+            theme: "outline",
+            size: "large",
+            width: "280",
+            shape: "pill",
+            text: "continue_with",
+          });
+        }
+      } catch (error) {
+        console.error("Error initializing Google Sign-In:", error);
+      }
+    };
+
+    initGoogle();
+    window.addEventListener("load", initGoogle);
+    return () => window.removeEventListener("load", initGoogle);
+  }, []);
+
+  if (currentScreen === "profile") {
+    return (
+      <ProfileScreen
+        onLogout={handleLogout}
+        onNavigate={handleNavigate}
+        spots={spots}
+      />
+    );
+  }
+
+  if (currentScreen === "vivacDetail") {
+    return (
+      <VivacDetailScreen
+        vivac={selectedVivac}
+        onClose={() => setCurrentScreen(lastMainScreen)}
+        onNavigate={handleNavigate}
+      />
+    );
+  }
+
+  if (currentScreen === "createVivac") {
+    return (
+      <CreateVivacScreen
+        onClose={() => setCurrentScreen(lastMainScreen)}
+        onCreateVivac={handleCreateVivac}
+        existingSpots={spots}
+      />
+    );
+  }
+
+  if (currentScreen === "home") {
+    return (
+      <HomeScreen
+        onLogout={handleLogout}
+        onNavigate={handleNavigate}
+        spots={spots}
+      />
+    );
+  }
+
+  if (currentScreen === "explore") {
+    return (
+      <ExploreScreen
+        onLogout={handleLogout}
+        onNavigate={handleNavigate}
+        spots={spots}
+      />
+    );
+  }
+
+  return (
+    <div className="auth-page">
+      <div className="auth-container">
+        <div className="auth-header">
+          <div className="logo-pill">
+            <img src="/logo.png" alt="Logo Vivac" className="logo-image" />
+          </div>
+
+          <h1 className="welcome-title">Bienvenido a VivacWeb</h1>
+          <p className="welcome-subtitle">
+            Explora, comparte y descubre los mejores puntos de vivac para tus
+            aventuras outdoor.
+          </p>
+        </div>
+
+        <div className="auth-card">
+          <h2 className="auth-card-title">
+            {view === "login" && "Iniciar sesión"}
+            {view === "register" && "Crear cuenta"}
+            {view === "forgot" && "Recuperar contraseña"}
+          </h2>
+
+          {authError && (
+            <div className="auth-alert auth-alert-error">{authError}</div>
+          )}
+          {statusMessage && (
+            <div className="auth-alert auth-alert-success">{statusMessage}</div>
+          )}
+
+          {view === "login" && (
+            <form className="auth-form" onSubmit={handleLoginSubmit}>
+              <div className="form-field">
+                <label htmlFor="login-email">Correo electrónico</label>
+                <input
+                  id="login-email"
+                  type="email"
+                  placeholder="example@gmail.com"
+                  value={loginEmail}
+                  onChange={(event) => setLoginEmail(event.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="login-password">Contraseña</label>
+                <div className="password-field">
+                  <input
+                    id="login-password"
+                    type={showLoginPassword ? "text" : "password"}
+                    placeholder="Tu contraseña"
+                    value={loginPassword}
+                    onChange={(event) => setLoginPassword(event.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowLoginPassword(!showLoginPassword)}
+                  >
+                    <span className="material-symbols-outlined">
+                      {showLoginPassword ? "visibility" : "visibility_off"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="auth-button"
+                disabled={loginLoading}
+              >
+                {loginLoading ? "Iniciando sesión..." : "Iniciar sesión"}
+              </button>
+            </form>
+          )}
+
+          {view === "register" && (
+            <form className="auth-form" onSubmit={handleRegisterSubmit}>
+              <div className="form-field">
+                <label htmlFor="register-username">Nombre de usuario</label>
+                <input
+                  id="register-username"
+                  type="text"
+                  placeholder="Tu nombre de usuario"
+                  value={registerUserName}
+                  onChange={(event) => setRegisterUserName(event.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="register-email">Correo electrónico</label>
+                <input
+                  id="register-email"
+                  type="email"
+                  placeholder="example@gmail.com"
+                  value={registerEmail}
+                  onChange={(event) => setRegisterEmail(event.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="register-password">Contraseña</label>
+                <div className="password-field">
+                  <input
+                    id="register-password"
+                    type={showLoginPassword ? "text" : "password"}
+                    placeholder="Mínimo 8 caracteres, 1 mayúscula, 1 número, 1 símbolo"
+                    value={registerPassword}
+                    onChange={(event) => setRegisterPassword(event.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowLoginPassword(!showLoginPassword)}
+                  >
+                    <span className="material-symbols-outlined">
+                      {showLoginPassword ? "visibility" : "visibility_off"}
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="form-field">
+                <label htmlFor="register-password-confirm">
+                  Confirmar contraseña
+                </label>
+                <input
+                  id="register-password-confirm"
+                  type="password"
+                  placeholder="Confirma tu contraseña"
+                  value={registerPasswordConfirm}
+                  onChange={(event) =>
+                    setRegisterPasswordConfirm(event.target.value)
+                  }
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="auth-button"
+                disabled={registerLoading}
+              >
+                {registerLoading ? "Creando cuenta..." : "Crear cuenta"}
+              </button>
+            </form>
+          )}
+
+          {view === "forgot" && (
+            <form className="auth-form" onSubmit={handleForgotSubmit}>
+              <div className="form-field">
+                <label htmlFor="forgot-email">Correo electrónico</label>
+                <input
+                  id="forgot-email"
+                  type="email"
+                  placeholder="example@gmail.com"
+                  value={forgotEmail}
+                  onChange={(event) => setForgotEmail(event.target.value)}
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="auth-button"
+                disabled={forgotLoading}
+              >
+                {forgotLoading ? "Enviando..." : "Enviar instrucciones"}
+              </button>
+            </form>
+          )}
+
+          <div className="auth-divider">O</div>
+
+          <div id="googleSignInDiv" className="google-signin-container"></div>
+
+          <div className="auth-footer">
+            {view === "login" && (
+              <>
+                <p>
+                  ¿No tienes cuenta?{" "}
+                  <button
+                    type="button"
+                    className="auth-link"
+                    onClick={() => setView("register")}
+                  >
+                    Crear una
+                  </button>
+                </p>
+                <p>
+                  ¿Olvidaste tu contraseña?{" "}
+                  <button
+                    type="button"
+                    className="auth-link"
+                    onClick={() => setView("forgot")}
+                  >
+                    Recuperarla
+                  </button>
+                </p>
+              </>
+            )}
+            {view === "register" && (
+              <p>
+                ¿Ya tienes cuenta?{" "}
+                <button
+                  type="button"
+                  className="auth-link"
+                  onClick={() => setView("login")}
+                >
+                  Inicia sesión
+                </button>
+              </p>
+            )}
+            {view === "forgot" && (
+              <p>
+                <button
+                  type="button"
+                  className="auth-link"
+                  onClick={() => setView("login")}
+                >
+                  Volver al login
+                </button>
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
